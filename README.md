@@ -1,6 +1,5 @@
-Notification Popup Window Nuget
+# Notification Popup Window Nuget
 
-========================
 ### A notification window that appears on the lower right part of the screen for .NET
 
 ![Screenshot](Screenshots/example1.png)
