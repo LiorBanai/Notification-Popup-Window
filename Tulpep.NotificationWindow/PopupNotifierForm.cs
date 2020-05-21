@@ -1,23 +1,14 @@
-﻿/*
- *	Created/modified in 2011 by Simon Baer
- *	
- *  Based on the Code Project article by Nicolas Wälti:
- *  http://www.codeproject.com/KB/cpp/PopupNotifier.aspx
- * 
- *  Licensed under the Code Project Open License (CPOL).
- */
-
-using System;
-using System.Windows.Forms;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
-namespace Tulpep.NotificationWindow
+namespace NotificationWindow
 {
     /// <summary>
     /// This is the form of the actual notification window.
     /// </summary>
-    internal class PopupNotifierForm : System.Windows.Forms.Form
+    internal class PopupNotifierForm : Form
     {
         /// <summary>
         /// Event that is raised when the text is clicked.
@@ -68,10 +59,10 @@ namespace Tulpep.NotificationWindow
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.ShowInTaskbar = false;
 
-            this.VisibleChanged += new EventHandler(PopupNotifierForm_VisibleChanged);
-            this.MouseMove += new MouseEventHandler(PopupNotifierForm_MouseMove);
-            this.MouseUp += new MouseEventHandler(PopupNotifierForm_MouseUp);
-            this.Paint += new PaintEventHandler(PopupNotifierForm_Paint);
+            this.VisibleChanged += PopupNotifierForm_VisibleChanged;
+            this.MouseMove += PopupNotifierForm_MouseMove;
+            this.MouseUp += PopupNotifierForm_MouseUp;
+            this.Paint += PopupNotifierForm_Paint;
         }
 
         /// <summary>
@@ -238,7 +229,7 @@ namespace Tulpep.NotificationWindow
                         ContextMenuOpened(this, EventArgs.Empty);
                     }
                     Parent.OptionsMenu.Show(this, new Point(RectOptions.Right - Parent.OptionsMenu.Width, RectOptions.Bottom));
-                    Parent.OptionsMenu.Closed += new ToolStripDropDownClosedEventHandler(OptionsMenu_Closed);
+                    Parent.OptionsMenu.Closed += OptionsMenu_Closed;
                 }
             }
         }
@@ -250,7 +241,7 @@ namespace Tulpep.NotificationWindow
         /// <param name="e"></param>
         private void OptionsMenu_Closed(object sender, ToolStripDropDownClosedEventArgs e)
         {
-            Parent.OptionsMenu.Closed -= new ToolStripDropDownClosedEventHandler(OptionsMenu_Closed);
+            Parent.OptionsMenu.Closed -= OptionsMenu_Closed;
 
             if (ContextMenuClosed != null)
             {

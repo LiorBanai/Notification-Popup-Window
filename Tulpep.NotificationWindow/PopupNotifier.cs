@@ -9,20 +9,23 @@
 
 using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
-namespace Tulpep.NotificationWindow
+namespace NotificationWindow
 {
     /// <summary>
     /// Non-visual component to show a notification window in the right lower
     /// corner of the screen.
     /// </summary>
-    [ToolboxBitmapAttribute(typeof(PopupNotifier), "Icon.ico")]
+    [ToolboxBitmap(typeof(PopupNotifier), "Icon.ico")]
     [DefaultEvent("Click")]
     public class PopupNotifier : Component
     {
+        public static int VisiblePopups;
         #region Windows API
         private const int SW_SHOWNOACTIVATE = 4;
         private const int HWND_TOPMOST = -1;
@@ -276,7 +279,7 @@ namespace Tulpep.NotificationWindow
             // set default values
             HeaderColor = SystemColors.ControlDark;
             BodyColor = SystemColors.Control;
-            TitleColor = System.Drawing.Color.Gray;
+            TitleColor = Color.Gray;
             ContentColor = SystemColors.ControlText;
             BorderColor = SystemColors.WindowFrame;
             ButtonBorderColor = SystemColors.WindowFrame;
@@ -299,22 +302,22 @@ namespace Tulpep.NotificationWindow
             Size = new Size(400, 100);
 
             frmPopup = new PopupNotifierForm(this);            
-            frmPopup.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            frmPopup.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            frmPopup.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            frmPopup.MouseEnter += new EventHandler(frmPopup_MouseEnter);
-            frmPopup.MouseLeave += new EventHandler(frmPopup_MouseLeave);
-            frmPopup.CloseClick += new EventHandler(frmPopup_CloseClick);
-            frmPopup.LinkClick += new EventHandler(frmPopup_LinkClick);
-            frmPopup.ContextMenuOpened += new EventHandler(frmPopup_ContextMenuOpened);
-            frmPopup.ContextMenuClosed += new EventHandler(frmPopup_ContextMenuClosed);
-            frmPopup.VisibleChanged += new EventHandler(frmPopup_VisibleChanged);
+            frmPopup.FormBorderStyle = FormBorderStyle.None;
+            frmPopup.StartPosition = FormStartPosition.Manual;
+            frmPopup.FormBorderStyle = FormBorderStyle.None;
+            frmPopup.MouseEnter += frmPopup_MouseEnter;
+            frmPopup.MouseLeave += frmPopup_MouseLeave;
+            frmPopup.CloseClick += frmPopup_CloseClick;
+            frmPopup.LinkClick += frmPopup_LinkClick;
+            frmPopup.ContextMenuOpened += frmPopup_ContextMenuOpened;
+            frmPopup.ContextMenuClosed += frmPopup_ContextMenuClosed;
+            frmPopup.VisibleChanged += frmPopup_VisibleChanged;
 
             tmrAnimation = new Timer();
-            tmrAnimation.Tick += new EventHandler(tmAnimation_Tick);
+            tmrAnimation.Tick += tmAnimation_Tick;
 
             tmrWait = new Timer();
-            tmrWait.Tick += new EventHandler(tmWait_Tick);
+            tmrWait.Tick += tmWait_Tick;
         }
 
         /// <summary>
@@ -323,20 +326,22 @@ namespace Tulpep.NotificationWindow
         /// </summary>
         public void Popup()
         {
+         
             if (!disposed)
             {
                 if (!frmPopup.Visible)
-                {
+                {  
+                    Interlocked.Increment(ref VisiblePopups);
                     frmPopup.Size = Size;
                     if (Scroll)
                     {
-                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom;
-                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
+                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom - (VisiblePopups)*frmPopup.Height;
+                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom - (VisiblePopups ) * frmPopup.Height;
                     }
                     else
                     {
-                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
-                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
+                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom -(VisiblePopups ) * frmPopup.Height;
+                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom - (VisiblePopups ) * frmPopup.Height;
                     }
                     opacityStart = 0;
                     opacityStop = 1;
@@ -361,12 +366,12 @@ namespace Tulpep.NotificationWindow
                         if (Scroll)
                         {
                             posStart = frmPopup.Top;
-                            posStop = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
+                            posStop = Screen.PrimaryScreen.WorkingArea.Bottom - (VisiblePopups) * frmPopup.Height;
                         }
                         else
                         {
-                            posStart = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
-                            posStop = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
+                            posStart = Screen.PrimaryScreen.WorkingArea.Bottom -(VisiblePopups) * frmPopup.Height;
+                            posStop = Screen.PrimaryScreen.WorkingArea.Bottom -  (VisiblePopups)*frmPopup.Height;
                         }
                         opacityStart = frmPopup.Opacity;
                         opacityStop = 1;
@@ -430,10 +435,7 @@ namespace Tulpep.NotificationWindow
         /// <param name="e"></param>
         private void frmPopup_LinkClick(object sender, EventArgs e)
         {
-            if (Click != null)
-            {
-                Click(this, EventArgs.Empty);
-            }
+            Click?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -445,10 +447,7 @@ namespace Tulpep.NotificationWindow
         private void frmPopup_CloseClick(object sender, EventArgs e)
         {
             Hide();
-            if (Close != null)
-            {
-                Close(this, EventArgs.Empty);
-            }
+            Close?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -460,11 +459,11 @@ namespace Tulpep.NotificationWindow
         {
             if (frmPopup.Visible)
             {
-                if (Appear != null) Appear(this, EventArgs.Empty);
+                Appear?.Invoke(this, EventArgs.Empty);
             }
             else
             {
-                if (Disappear != null) Disappear(this, EventArgs.Empty);
+                Disappear?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -534,6 +533,7 @@ namespace Tulpep.NotificationWindow
                 else
                 {
                     frmPopup.Hide();
+                    Interlocked.Decrement(ref VisiblePopups);
                 }
             }
         }
@@ -600,9 +600,9 @@ namespace Tulpep.NotificationWindow
         {
             if (!disposed)
             {
-                if (disposing && frmPopup != null)
+                if (disposing)
                 {
-                    frmPopup.Dispose();
+                    frmPopup?.Dispose();
                 }
                 disposed = true;
             }

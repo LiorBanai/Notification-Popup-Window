@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.128
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tulpep.NotificationWindow", "Tulpep.NotificationWindow\Tulpep.NotificationWindow.csproj", "{605006EB-D4E6-4312-A293-3A43FAC43240}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationWindow", "Tulpep.NotificationWindow\NotificationWindow.csproj", "{605006EB-D4E6-4312-A293-3A43FAC43240}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp", "DemoApp\DemoApp.csproj", "{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}"
 EndProject
@@ -27,7 +27,8 @@ Global
 		{605006EB-D4E6-4312-A293-3A43FAC43240}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{605006EB-D4E6-4312-A293-3A43FAC43240}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{605006EB-D4E6-4312-A293-3A43FAC43240}.Release|x86.ActiveCfg = Release|Any CPU
-		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Debug|x86.ActiveCfg = Debug|x86
@@ -40,5 +41,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F04F4F0-A559-4073-BFA8-4EB439317DBF}
 	EndGlobalSection
 EndGlobal

@@ -56,8 +56,9 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label8 = new System.Windows.Forms.Label();
             this.txtAnimationDuration = new System.Windows.Forms.TextBox();
-            this.popupNotifier1 = new Tulpep.NotificationWindow.PopupNotifier();
             this.chkIsRightToLeft = new System.Windows.Forms.CheckBox();
+            this.popupNotifier1 = new NotificationWindow.PopupNotifier();
+            this.btnMore = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,7 +87,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 13);
+            this.label1.Size = new System.Drawing.Size(37, 17);
             this.label1.TabIndex = 2;
             this.label1.Text = "Title:";
             // 
@@ -95,7 +96,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 43);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(33, 13);
+            this.label2.Size = new System.Drawing.Size(41, 17);
             this.label2.TabIndex = 3;
             this.label2.Text = "Text:";
             // 
@@ -103,7 +104,7 @@
             // 
             this.txtTitle.Location = new System.Drawing.Point(48, 14);
             this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(372, 21);
+            this.txtTitle.Size = new System.Drawing.Size(372, 24);
             this.txtTitle.TabIndex = 4;
             this.txtTitle.Text = "Notification Title";
             // 
@@ -111,7 +112,7 @@
             // 
             this.txtText.Location = new System.Drawing.Point(49, 40);
             this.txtText.Name = "txtText";
-            this.txtText.Size = new System.Drawing.Size(371, 21);
+            this.txtText.Size = new System.Drawing.Size(371, 24);
             this.txtText.TabIndex = 5;
             this.txtText.Text = "This is the notification text!";
             // 
@@ -122,7 +123,7 @@
             this.chkIcon.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkIcon.Location = new System.Drawing.Point(15, 75);
             this.chkIcon.Name = "chkIcon";
-            this.chkIcon.Size = new System.Drawing.Size(74, 17);
+            this.chkIcon.Size = new System.Drawing.Size(93, 21);
             this.chkIcon.TabIndex = 6;
             this.chkIcon.Text = "Show icon";
             this.chkIcon.UseVisualStyleBackColor = true;
@@ -134,7 +135,7 @@
             this.chkClose.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkClose.Location = new System.Drawing.Point(15, 98);
             this.chkClose.Name = "chkClose";
-            this.chkClose.Size = new System.Drawing.Size(114, 17);
+            this.chkClose.Size = new System.Drawing.Size(144, 21);
             this.chkClose.TabIndex = 7;
             this.chkClose.Text = "Show close button";
             this.chkClose.UseVisualStyleBackColor = true;
@@ -146,7 +147,7 @@
             this.chkMenu.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMenu.Location = new System.Drawing.Point(15, 121);
             this.chkMenu.Name = "chkMenu";
-            this.chkMenu.Size = new System.Drawing.Size(114, 17);
+            this.chkMenu.Size = new System.Drawing.Size(146, 21);
             this.chkMenu.TabIndex = 8;
             this.chkMenu.Text = "Show option menu";
             this.chkMenu.UseVisualStyleBackColor = true;
@@ -156,7 +157,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(199, 76);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 13);
+            this.label4.Size = new System.Drawing.Size(79, 17);
             this.label4.TabIndex = 9;
             this.label4.Text = "Delay [ms]:";
             // 
@@ -165,7 +166,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(199, 99);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 13);
+            this.label3.Size = new System.Drawing.Size(153, 17);
             this.label3.TabIndex = 10;
             this.label3.Text = "Animation interval [ms]:";
             // 
@@ -173,7 +174,7 @@
             // 
             this.txtDelay.Location = new System.Drawing.Point(320, 70);
             this.txtDelay.Name = "txtDelay";
-            this.txtDelay.Size = new System.Drawing.Size(100, 21);
+            this.txtDelay.Size = new System.Drawing.Size(100, 24);
             this.txtDelay.TabIndex = 11;
             this.txtDelay.Text = "3000";
             // 
@@ -181,7 +182,7 @@
             // 
             this.txtInterval.Location = new System.Drawing.Point(320, 96);
             this.txtInterval.Name = "txtInterval";
-            this.txtInterval.Size = new System.Drawing.Size(100, 21);
+            this.txtInterval.Size = new System.Drawing.Size(100, 24);
             this.txtInterval.TabIndex = 12;
             this.txtInterval.Text = "10";
             // 
@@ -192,7 +193,7 @@
             this.chkGrip.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkGrip.Location = new System.Drawing.Point(15, 144);
             this.chkGrip.Name = "chkGrip";
-            this.chkGrip.Size = new System.Drawing.Size(73, 17);
+            this.chkGrip.Size = new System.Drawing.Size(91, 21);
             this.chkGrip.TabIndex = 13;
             this.chkGrip.Text = "Show grip";
             this.chkGrip.UseVisualStyleBackColor = true;
@@ -202,7 +203,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(199, 151);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 13);
+            this.label5.Size = new System.Drawing.Size(120, 17);
             this.label5.TabIndex = 14;
             this.label5.Text = "Title padding [px]:";
             // 
@@ -210,7 +211,7 @@
             // 
             this.txtPaddingIcon.Location = new System.Drawing.Point(320, 200);
             this.txtPaddingIcon.Name = "txtPaddingIcon";
-            this.txtPaddingIcon.Size = new System.Drawing.Size(100, 21);
+            this.txtPaddingIcon.Size = new System.Drawing.Size(100, 24);
             this.txtPaddingIcon.TabIndex = 15;
             this.txtPaddingIcon.Text = "0";
             // 
@@ -221,7 +222,7 @@
             this.chkScroll.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkScroll.Location = new System.Drawing.Point(15, 167);
             this.chkScroll.Name = "chkScroll";
-            this.chkScroll.Size = new System.Drawing.Size(82, 17);
+            this.chkScroll.Size = new System.Drawing.Size(102, 21);
             this.chkScroll.TabIndex = 16;
             this.chkScroll.Text = "Scroll in/out";
             this.chkScroll.UseVisualStyleBackColor = true;
@@ -230,7 +231,7 @@
             // 
             this.txtPaddingContent.Location = new System.Drawing.Point(320, 174);
             this.txtPaddingContent.Name = "txtPaddingContent";
-            this.txtPaddingContent.Size = new System.Drawing.Size(100, 21);
+            this.txtPaddingContent.Size = new System.Drawing.Size(100, 24);
             this.txtPaddingContent.TabIndex = 17;
             this.txtPaddingContent.Text = "0";
             // 
@@ -239,7 +240,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(199, 203);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(96, 13);
+            this.label6.Size = new System.Drawing.Size(123, 17);
             this.label6.TabIndex = 18;
             this.label6.Text = "Icon padding [px]:";
             // 
@@ -247,7 +248,7 @@
             // 
             this.txtPaddingTitle.Location = new System.Drawing.Point(320, 148);
             this.txtPaddingTitle.Name = "txtPaddingTitle";
-            this.txtPaddingTitle.Size = new System.Drawing.Size(100, 21);
+            this.txtPaddingTitle.Size = new System.Drawing.Size(100, 24);
             this.txtPaddingTitle.TabIndex = 19;
             this.txtPaddingTitle.Text = "0";
             // 
@@ -256,35 +257,36 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(199, 177);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(114, 13);
+            this.label7.Size = new System.Drawing.Size(146, 17);
             this.label7.TabIndex = 20;
             this.label7.Text = "Content padding [px]:";
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(126, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(141, 76);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(140, 24);
             this.aboutToolStripMenuItem.Text = "About...";
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(140, 24);
             this.settingsToolStripMenuItem.Text = "Settings...";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(140, 24);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // label8
@@ -292,7 +294,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(199, 125);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(123, 13);
+            this.label8.Size = new System.Drawing.Size(158, 17);
             this.label8.TabIndex = 21;
             this.label8.Text = "AnimationDuration [ms]:";
             // 
@@ -300,9 +302,19 @@
             // 
             this.txtAnimationDuration.Location = new System.Drawing.Point(320, 122);
             this.txtAnimationDuration.Name = "txtAnimationDuration";
-            this.txtAnimationDuration.Size = new System.Drawing.Size(100, 21);
+            this.txtAnimationDuration.Size = new System.Drawing.Size(100, 24);
             this.txtAnimationDuration.TabIndex = 22;
             this.txtAnimationDuration.Text = "1000";
+            // 
+            // chkIsRightToLeft
+            // 
+            this.chkIsRightToLeft.AutoSize = true;
+            this.chkIsRightToLeft.Location = new System.Drawing.Point(12, 190);
+            this.chkIsRightToLeft.Name = "chkIsRightToLeft";
+            this.chkIsRightToLeft.Size = new System.Drawing.Size(192, 21);
+            this.chkIsRightToLeft.TabIndex = 23;
+            this.chkIsRightToLeft.Text = "Right to Left/ راست به چپ";
+            this.chkIsRightToLeft.UseVisualStyleBackColor = true;
             // 
             // popupNotifier1
             // 
@@ -318,21 +330,22 @@
             this.popupNotifier1.TitleFont = new System.Drawing.Font("Segoe UI", 9F);
             this.popupNotifier1.TitleText = null;
             // 
-            // chkIsRightToLeft
+            // btnMore
             // 
-            this.chkIsRightToLeft.AutoSize = true;
-            this.chkIsRightToLeft.Location = new System.Drawing.Point(12, 190);
-            this.chkIsRightToLeft.Name = "chkIsRightToLeft";
-            this.chkIsRightToLeft.Size = new System.Drawing.Size(153, 17);
-            this.chkIsRightToLeft.TabIndex = 23;
-            this.chkIsRightToLeft.Text = "Right to Left/ راست به چپ";
-            this.chkIsRightToLeft.UseVisualStyleBackColor = true;
+            this.btnMore.Location = new System.Drawing.Point(101, 222);
+            this.btnMore.Name = "btnMore";
+            this.btnMore.Size = new System.Drawing.Size(75, 23);
+            this.btnMore.TabIndex = 24;
+            this.btnMore.Text = "more";
+            this.btnMore.UseVisualStyleBackColor = true;
+            this.btnMore.Click += new System.EventHandler(this.btnMore_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(512, 257);
+            this.Controls.Add(this.btnMore);
             this.Controls.Add(this.chkIsRightToLeft);
             this.Controls.Add(this.txtPaddingTitle);
             this.Controls.Add(this.label7);
@@ -398,8 +411,9 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtAnimationDuration;
-        private Tulpep.NotificationWindow.PopupNotifier popupNotifier1;
+        private NotificationWindow.PopupNotifier popupNotifier1;
         private System.Windows.Forms.CheckBox chkIsRightToLeft;
+        private System.Windows.Forms.Button btnMore;
     }
 }
 

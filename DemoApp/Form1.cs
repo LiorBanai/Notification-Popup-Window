@@ -7,6 +7,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using NotificationWindow;
 
 namespace DemoApp
 {
@@ -32,14 +33,7 @@ namespace DemoApp
             popupNotifier1.ImagePadding = new Padding(int.Parse(txtPaddingIcon.Text));
             popupNotifier1.Scroll = chkScroll.Checked;
             popupNotifier1.IsRightToLeft = chkIsRightToLeft.Checked;
-            if (chkIcon.Checked)
-            {
-                popupNotifier1.Image = Properties.Resources._157_GetPermission_48x48_72;
-            }
-            else
-            {
-                popupNotifier1.Image = null;
-            }
+            popupNotifier1.Image = chkIcon.Checked ? Properties.Resources._157_GetPermission_48x48_72 : null;
 
             popupNotifier1.Popup();
         }
@@ -48,6 +42,27 @@ namespace DemoApp
         {
             this.Close();
             Application.Exit();
+        }
+
+        private void btnMore_Click(object sender, EventArgs e)
+        {
+            var popupNotifier2 = new PopupNotifier();
+            popupNotifier2.TitleText = txtTitle.Text;
+            popupNotifier2.ContentText = txtText.Text;
+            popupNotifier2.ShowCloseButton = chkClose.Checked;
+            popupNotifier2.ShowOptionsButton = chkMenu.Checked;
+            popupNotifier2.ShowGrip = chkGrip.Checked;
+            popupNotifier2.Delay = int.Parse(txtDelay.Text);
+            popupNotifier2.AnimationInterval = int.Parse(txtInterval.Text);
+            popupNotifier2.AnimationDuration = int.Parse(txtAnimationDuration.Text);
+            popupNotifier2.TitlePadding = new Padding(int.Parse(txtPaddingTitle.Text));
+            popupNotifier2.ContentPadding = new Padding(int.Parse(txtPaddingContent.Text));
+            popupNotifier2.ImagePadding = new Padding(int.Parse(txtPaddingIcon.Text));
+            popupNotifier2.Scroll = chkScroll.Checked;
+            popupNotifier2.IsRightToLeft = chkIsRightToLeft.Checked;
+            popupNotifier2.Image = chkIcon.Checked ? Properties.Resources._157_GetPermission_48x48_72 : null;
+
+            popupNotifier2.Popup();
         }
     }
 }
