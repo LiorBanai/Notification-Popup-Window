@@ -54,15 +54,15 @@ namespace NotificationWindow
         public PopupNotifierForm(PopupNotifier parent)
         {
             Parent = parent;
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            this.SetStyle(ControlStyles.ResizeRedraw, true);
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            this.ShowInTaskbar = false;
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            ShowInTaskbar = false;
 
-            this.VisibleChanged += PopupNotifierForm_VisibleChanged;
-            this.MouseMove += PopupNotifierForm_MouseMove;
-            this.MouseUp += PopupNotifierForm_MouseUp;
-            this.Paint += PopupNotifierForm_Paint;
+            VisibleChanged += PopupNotifierForm_VisibleChanged;
+            MouseMove += PopupNotifierForm_MouseMove;
+            MouseUp += PopupNotifierForm_MouseUp;
+            Paint += PopupNotifierForm_Paint;
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace NotificationWindow
         /// <param name="e"></param>
         private void PopupNotifierForm_VisibleChanged(object sender, EventArgs e)
         {
-            if (this.Visible)
+            if (Visible)
             {
                 mouseOnClose = false;
                 mouseOnLink = false;
@@ -85,15 +85,15 @@ namespace NotificationWindow
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // PopupNotifierForm
             // 
-            this.ClientSize = new System.Drawing.Size(392, 66);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "PopupNotifierForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.ResumeLayout(false);
+            ClientSize = new Size(392, 66);
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "PopupNotifierForm";
+            StartPosition = FormStartPosition.Manual;
+            ResumeLayout(false);
 
         }
 
@@ -131,7 +131,7 @@ namespace NotificationWindow
         /// <returns>darker color</returns>
         private Color GetDarkerColor(Color color)
         {
-            return System.Drawing.Color.FromArgb(255, DedValueMin0((int)color.R, Parent.GradientPower), DedValueMin0((int)color.G, Parent.GradientPower), DedValueMin0((int)color.B, Parent.GradientPower));
+            return Color.FromArgb(255, DedValueMin0((int)color.R, Parent.GradientPower), DedValueMin0((int)color.G, Parent.GradientPower), DedValueMin0((int)color.B, Parent.GradientPower));
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace NotificationWindow
         /// <returns>lighter color</returns>
         private Color GetLighterColor(Color color)
         {
-            return System.Drawing.Color.FromArgb(255, AddValueMax255((int)color.R, Parent.GradientPower), AddValueMax255((int)color.G, Parent.GradientPower), AddValueMax255((int)color.B, Parent.GradientPower));
+            return Color.FromArgb(255, AddValueMax255((int)color.R, Parent.GradientPower), AddValueMax255((int)color.G, Parent.GradientPower), AddValueMax255((int)color.B, Parent.GradientPower));
         }
 
         /// <summary>
@@ -156,16 +156,16 @@ namespace NotificationWindow
                     return new RectangleF(
                         Parent.ImagePadding.Left + Parent.ImageSize.Width + Parent.ImagePadding.Right + Parent.ContentPadding.Left,
                         Parent.HeaderHeight + Parent.TitlePadding.Top + heightOfTitle + Parent.TitlePadding.Bottom + Parent.ContentPadding.Top,
-                        this.Width - Parent.ImagePadding.Left - Parent.ImageSize.Width - Parent.ImagePadding.Right - Parent.ContentPadding.Left - Parent.ContentPadding.Right - 16 - 5,
-                        this.Height - Parent.HeaderHeight - Parent.TitlePadding.Top - heightOfTitle - Parent.TitlePadding.Bottom - Parent.ContentPadding.Top - Parent.ContentPadding.Bottom - 1);
+                        Width - Parent.ImagePadding.Left - Parent.ImageSize.Width - Parent.ImagePadding.Right - Parent.ContentPadding.Left - Parent.ContentPadding.Right - 16 - 5,
+                        Height - Parent.HeaderHeight - Parent.TitlePadding.Top - heightOfTitle - Parent.TitlePadding.Bottom - Parent.ContentPadding.Top - Parent.ContentPadding.Bottom - 1);
                 }
                 else
                 {
                     return new RectangleF(
                         Parent.ContentPadding.Left,
                         Parent.HeaderHeight + Parent.TitlePadding.Top + heightOfTitle + Parent.TitlePadding.Bottom + Parent.ContentPadding.Top,
-                        this.Width - Parent.ContentPadding.Left - Parent.ContentPadding.Right - 16 - 5,
-                        this.Height - Parent.HeaderHeight - Parent.TitlePadding.Top - heightOfTitle - Parent.TitlePadding.Bottom - Parent.ContentPadding.Top - Parent.ContentPadding.Bottom - 1);
+                        Width - Parent.ContentPadding.Left - Parent.ContentPadding.Right - 16 - 5,
+                        Height - Parent.HeaderHeight - Parent.TitlePadding.Top - heightOfTitle - Parent.TitlePadding.Bottom - Parent.ContentPadding.Top - Parent.ContentPadding.Bottom - 1);
                 }
             }
         }
@@ -175,7 +175,7 @@ namespace NotificationWindow
         /// </summary>
         private Rectangle RectClose
         {
-            get { return new Rectangle(this.Width - 5 - 16, Parent.HeaderHeight + 3, 16, 16); }
+            get { return new Rectangle(Width - 5 - 16, Parent.HeaderHeight + 3, 16, 16); }
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace NotificationWindow
         /// </summary>
         private Rectangle RectOptions
         {
-            get { return new Rectangle(this.Width - 5 - 16, Parent.HeaderHeight + 3 + 16 + 5, 16, 16); }
+            get { return new Rectangle(Width - 5 - 16, Parent.HeaderHeight + 3 + 16 + 5, 16, 16); }
         }
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace NotificationWindow
         /// <param name="e"></param>
         private void PopupNotifierForm_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 if (RectClose.Contains(e.X, e.Y) && (CloseClick != null))
                 {
@@ -254,9 +254,9 @@ namespace NotificationWindow
         /// </summary>
         private void AllocateGDIObjects()
         {
-            rcBody = new Rectangle(0, 0, this.Width, this.Height);
-            rcHeader = new Rectangle(0, 0, this.Width, Parent.HeaderHeight);
-            rcForm = new Rectangle(0, 0, this.Width - 1, this.Height - 1);
+            rcBody = new Rectangle(0, 0, Width, Height);
+            rcHeader = new Rectangle(0, 0, Width, Parent.HeaderHeight);
+            rcForm = new Rectangle(0, 0, Width - 1, Height - 1);
 
             brushBody = new LinearGradientBrush(rcBody, Parent.BodyColor, GetLighterColor(Parent.BodyColor), LinearGradientMode.Vertical);
             brushHeader = new LinearGradientBrush(rcHeader, Parent.HeaderColor, GetDarkerColor(Parent.HeaderColor), LinearGradientMode.Vertical);
@@ -310,7 +310,7 @@ namespace NotificationWindow
             e.Graphics.DrawRectangle(penBorder, rcForm);
             if (Parent.ShowGrip)
             {
-                e.Graphics.DrawImage(Properties.Resources.Grip, (int)((this.Width - Properties.Resources.Grip.Width) / 2), (int)((Parent.HeaderHeight - 3) / 2));
+                e.Graphics.DrawImage(Properties.Resources.Grip, (int)((Width - Properties.Resources.Grip.Width) / 2), (int)((Parent.HeaderHeight - 3) / 2));
             }
             if (Parent.ShowCloseButton)
             {
@@ -344,14 +344,14 @@ namespace NotificationWindow
                 heightOfTitle = (int)e.Graphics.MeasureString("A", Parent.TitleFont).Height;
 
                 // the value 30 is because of x close icon
-                int titleX2 = this.Width - 30;// Parent.TitlePadding.Right;
+                int titleX2 = Width - 30;// Parent.TitlePadding.Right;
 
                 // draw title right to left
                 StringFormat headerFormat = new StringFormat(StringFormatFlags.DirectionRightToLeft);
                 e.Graphics.DrawString(Parent.TitleText, Parent.TitleFont, brushTitle, titleX2, Parent.HeaderHeight + Parent.TitlePadding.Top, headerFormat);
 
                 // draw content text, optionally with a bold part
-                this.Cursor = mouseOnLink ? Cursors.Hand : Cursors.Default;
+                Cursor = mouseOnLink ? Cursors.Hand : Cursors.Default;
                 Brush brushText = mouseOnLink ? brushLinkHover : brushContent;
 
                 // draw content right to left
@@ -367,7 +367,7 @@ namespace NotificationWindow
                     titleX += Parent.ImagePadding.Left + Parent.ImageSize.Width + Parent.ImagePadding.Right;
                 e.Graphics.DrawString(Parent.TitleText, Parent.TitleFont, brushTitle, titleX, Parent.HeaderHeight + Parent.TitlePadding.Top);
                 // draw content text, optionally with a bold part
-                this.Cursor = mouseOnLink ? Cursors.Hand : Cursors.Default;
+                Cursor = mouseOnLink ? Cursors.Hand : Cursors.Default;
                 Brush brushText = mouseOnLink ? brushLinkHover : brushContent;
                 e.Graphics.DrawString(Parent.ContentText, Parent.ContentFont, brushText, RectContentText);
             }

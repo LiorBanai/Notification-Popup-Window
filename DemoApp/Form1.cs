@@ -40,15 +40,28 @@ namespace DemoApp
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
             Application.Exit();
         }
 
         private void btnMore_Click(object sender, EventArgs e)
         {
             var popupNotifier2 = new PopupNotifier();
+          popupNotifier2.BodyColor = Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+          popupNotifier2.ContentFont = new Font("Tahoma", 8F);
+          popupNotifier2.ContentText = null;
+          popupNotifier2.GradientPower = 300;
+          popupNotifier2.HeaderHeight = 20;
+          popupNotifier2.Image = null;
+          popupNotifier2.IsRightToLeft = false;
+          popupNotifier2.OptionsMenu = contextMenuStrip1;
+          popupNotifier2.Size = new Size(400, 100);
+          popupNotifier2.TitleFont = new Font("Segoe UI", 9F);
+            popupNotifier2.TitleText = null;
             popupNotifier2.TitleText = txtTitle.Text;
             popupNotifier2.ContentText = txtText.Text;
+            popupNotifier2.GradientPower = 300;
+            popupNotifier2.HeaderHeight = 20;
             popupNotifier2.ShowCloseButton = chkClose.Checked;
             popupNotifier2.ShowOptionsButton = chkMenu.Checked;
             popupNotifier2.ShowGrip = chkGrip.Checked;
