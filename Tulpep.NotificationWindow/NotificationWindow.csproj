@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-	<TargetFramework>net48</TargetFramework>
+	  <TargetFrameworks>net4.0</TargetFrameworks>
+	  <UseWindowsForms>true</UseWindowsForms>
     <AssemblyTitle>NotificationWindow</AssemblyTitle>
     <Product>NotificationWindow</Product>
     <OutputPath>bin\$(Configuration)\</OutputPath>
