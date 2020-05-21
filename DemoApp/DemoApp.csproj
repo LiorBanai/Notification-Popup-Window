@@ -66,6 +66,7 @@
     <None Include="Resources\157_GetPermission_48x48_72.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NotificationWindow\NotificationWindow.csproj" />
     <ProjectReference Include="..\Tulpep.NotificationWindow\NotificationWindow.csproj" />
   </ItemGroup>
   <ItemGroup>
