@@ -3,13 +3,20 @@
 	  <TargetFrameworks>net4.0</TargetFrameworks>
 	  <UseWindowsForms>true</UseWindowsForms>
     <AssemblyTitle>NotificationWindow</AssemblyTitle>
-    <Product>NotificationWindow</Product>
+	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
+	  <IncludeSymbols>true</IncludeSymbols>
+	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Product>LiorBanaI.NotificationWindow</Product>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <Authors>Lior Banai</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/LiorBanai/Notification-Popup-Window</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LiorBanai/Notification-Popup-Window</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageId>LiorBanaI.NotificationWindow</PackageId>
+    <Company>LiorBanaI.NotificationWindow</Company>
+    <Description>Update to old project</Description>
+    <PackageReleaseNotes>Add support for multiple notification windows</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>portable</DebugType>
@@ -42,5 +49,15 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Tasks.Git" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>
