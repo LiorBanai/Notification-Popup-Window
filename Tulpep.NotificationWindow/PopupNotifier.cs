@@ -8,8 +8,10 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -25,7 +27,8 @@ namespace NotificationWindow
     [DefaultEvent("Click")]
     public class PopupNotifier : Component
     {
-        public static int VisiblePopups;
+        public static List<int> positions = new List<int>();
+        private int currentPosition;
         #region Windows API
         private const int SW_SHOWNOACTIVATE = 4;
         private const int HWND_TOPMOST = -1;
@@ -167,7 +170,7 @@ namespace NotificationWindow
 
         private bool ShouldSerializeImageSize()
         {
-            return (!imageSize.Equals(Size.Empty));
+            return !imageSize.Equals(Size.Empty);
         }
 
         private Size imageSize = new Size(0, 0);
@@ -203,7 +206,7 @@ namespace NotificationWindow
 
         private bool ShouldSerializeTitlePadding()
         {
-            return (!TitlePadding.Equals(Padding.Empty));
+            return !TitlePadding.Equals(Padding.Empty);
         }
 
         [Category("Content")]
@@ -217,7 +220,7 @@ namespace NotificationWindow
 
         private bool ShouldSerializeContentPadding()
         {
-            return (!ContentPadding.Equals(Padding.Empty));
+            return !ContentPadding.Equals(Padding.Empty);
         }
 
         [Category("Image")]
@@ -231,7 +234,7 @@ namespace NotificationWindow
 
         private bool ShouldSerializeImagePadding()
         {
-            return (!ImagePadding.Equals(Padding.Empty));
+            return !ImagePadding.Equals(Padding.Empty);
         }
 
         [Category("Header"), DefaultValue(9)]
@@ -319,7 +322,30 @@ namespace NotificationWindow
             tmrWait = new Timer();
             tmrWait.Tick += tmWait_Tick;
         }
+        private static object lockobj=new  object();
 
+    
+        private static void Remove(int value)
+        {
+            lock (lockobj)
+            {
+                positions.Remove(value);
+            }
+        }
+        private void SetNextPosition()
+        {
+            lock(lockobj)
+            { positions.Sort();
+                int minimum = 1;
+                foreach (var pos in positions)
+                {
+                    if (pos == minimum) minimum = pos + 1;
+                }
+
+                currentPosition = minimum;
+                positions.Add(minimum);
+            }
+        }
         /// <summary>
         /// Show the notification window if it is not already visible.
         /// If the window is currently disappearing, it is shown again.
@@ -330,18 +356,18 @@ namespace NotificationWindow
             if (!disposed)
             {
                 if (!frmPopup.Visible)
-                {  
-                    Interlocked.Increment(ref VisiblePopups);
+                {
+                    SetNextPosition();
                     frmPopup.Size = Size;
                     if (Scroll)
                     {
-                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom - (VisiblePopups)*frmPopup.Height;
-                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom - (VisiblePopups ) * frmPopup.Height;
+                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition *frmPopup.Height;
+                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
                     }
                     else
                     {
-                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom -(VisiblePopups ) * frmPopup.Height;
-                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom - (VisiblePopups ) * frmPopup.Height;
+                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom -currentPosition * frmPopup.Height;
+                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
                     }
                     opacityStart = 0;
                     opacityStop = 1;
@@ -366,12 +392,12 @@ namespace NotificationWindow
                         if (Scroll)
                         {
                             posStart = frmPopup.Top;
-                            posStop = Screen.PrimaryScreen.WorkingArea.Bottom - (VisiblePopups) * frmPopup.Height;
+                            posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
                         }
                         else
                         {
-                            posStart = Screen.PrimaryScreen.WorkingArea.Bottom -(VisiblePopups) * frmPopup.Height;
-                            posStop = Screen.PrimaryScreen.WorkingArea.Bottom -  (VisiblePopups)*frmPopup.Height;
+                            posStart = Screen.PrimaryScreen.WorkingArea.Bottom -currentPosition * frmPopup.Height;
+                            posStop = Screen.PrimaryScreen.WorkingArea.Bottom -  currentPosition *frmPopup.Height;
                         }
                         opacityStart = frmPopup.Opacity;
                         opacityStop = 1;
@@ -476,18 +502,18 @@ namespace NotificationWindow
         {
             long elapsed = sw.ElapsedMilliseconds;
 
-            int posCurrent = (int)(posStart + ((posStop - posStart) * elapsed / realAnimationDuration));
-            bool neg = (posStop - posStart) < 0;
-            if ((neg && posCurrent < posStop) ||
-                (!neg && posCurrent > posStop))
+            int posCurrent = (int)(posStart + (posStop - posStart) * elapsed / realAnimationDuration);
+            bool neg = posStop - posStart < 0;
+            if (neg && posCurrent < posStop ||
+                !neg && posCurrent > posStop)
             {
                 posCurrent = posStop;
             }
 
-            double opacityCurrent = opacityStart + ((opacityStop - opacityStart) * elapsed / realAnimationDuration);
-            neg = (opacityStop - opacityStart) < 0;
-            if ((neg && opacityCurrent < opacityStop) ||
-                (!neg && opacityCurrent > opacityStop))
+            double opacityCurrent = opacityStart + (opacityStop - opacityStart) * elapsed / realAnimationDuration;
+            neg = opacityStop - opacityStart < 0;
+            if (neg && opacityCurrent < opacityStop ||
+                !neg && opacityCurrent > opacityStop)
             {
                 opacityCurrent = opacityStop;
             }
@@ -533,7 +559,7 @@ namespace NotificationWindow
                 else
                 {
                     frmPopup.Hide();
-                    Interlocked.Decrement(ref VisiblePopups);
+                    Remove(currentPosition);
                 }
             }
         }

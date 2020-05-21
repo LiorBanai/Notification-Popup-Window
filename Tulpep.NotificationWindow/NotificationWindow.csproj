@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <TargetFramework>net48</TargetFramework>
-    <AssemblyTitle>Tulpep.NotificationWindow</AssemblyTitle>
+	<TargetFramework>net48</TargetFramework>
+    <AssemblyTitle>NotificationWindow</AssemblyTitle>
     <Product>NotificationWindow</Product>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <Authors>Lior Banai</Authors>
@@ -16,7 +15,8 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>portable</DebugType>
+	<DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
