@@ -17,6 +17,8 @@
     <Company>LiorBanaI.NotificationWindow</Company>
     <Description>Update to old project</Description>
     <PackageReleaseNotes>Add support for multiple notification windows</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>portable</DebugType>
