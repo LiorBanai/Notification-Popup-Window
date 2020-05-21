@@ -1,5 +1,5 @@
-Notification Popup Window Nuget [![Build status](https://ci.appveyor.com/api/projects/status/9fumwsbldabj54x3/branch/master?svg=true)](https://ci.appveyor.com/project/tulpep/notification-popup-window/branch/master)
-========================
+# Notification Popup Window Nuget
+
 ### A notification window that appears on the lower right part of the screen for .NET
 
 ![Screenshot](Screenshots/example1.png)
@@ -19,12 +19,7 @@ This project is based on a [Notification Window](http://www.codeproject.com/Arti
 ![Screenshot](Screenshots/example2.png)
 
 ### How to use it
-You can install the lastest version using [NuGet](https://www.nuget.org/packages/Tulpep.NotificationWindow/)
-```powershell
-Install-Package Tulpep.NotificationWindow
-```
-
-And use it this way:
+Download from the release section and use it this way:
 ```cs
 var popupNotifier = new PopupNotifier();
 popupNotifier.TitleText = "Title of popup";
