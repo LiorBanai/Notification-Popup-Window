@@ -1,5 +1,4 @@
-# Notification Popup Window Nuget
-
+# Notification Popup Window
 ### A notification window that appears on the lower right part of the screen for .NET
 
    [![Build Status](https://liorbanai.visualstudio.com/Notification-Window/_apis/build/status/LiorBanai.Notification-Popup-Window?branchName=master)](https://liorbanai.visualstudio.com/Notification-Window/_build/latest?definitionId=5&branchName=master)
