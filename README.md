@@ -2,7 +2,7 @@
 
 ### A notification window that appears on the lower right part of the screen for .NET
 
-   [![Build Status](https://liorbanai.visualstudio.com/GitHub-Notifier/_apis/build/status/LiorBanai.GitHub-Notifier?branchName=master)](https://liorbanai.visualstudio.com/GitHub-Notifier/_build/latest?definitionId=4&branchName=master)
+   [![Build Status](https://liorbanai.visualstudio.com/Notification-Window/_apis/build/status/LiorBanai.Notification-Popup-Window?branchName=master)](https://liorbanai.visualstudio.com/Notification-Window/_build/latest?definitionId=5&branchName=master)
 <a href="https://github.com/LiorBanai/GitHub-Notifier/issues">
     <img src="https://img.shields.io/github/issues/LiorBanai/GitHub-Notifier"  alt="Issues"/>
 </a>
