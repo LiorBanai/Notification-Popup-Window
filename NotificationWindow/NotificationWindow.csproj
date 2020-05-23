@@ -1,57 +1,27 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
   <PropertyGroup>
-	  <TargetFrameworks>net472</TargetFrameworks>
-	  <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyTitle>NotificationWindow</AssemblyTitle>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>netcoreapp3.1;net472</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>NotificationWindow</AssemblyName>
+    <RootNamespace>NotificationWindow</RootNamespace>
 	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
 	  <IncludeSymbols>true</IncludeSymbols>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <Product>LiorBanaI.NotificationWindow</Product>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
-    <Authors>Lior Banai</Authors>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>LiorBanai.NotificationWindow</PackageId>
+    <Authors>LiorBanai</Authors>
+    <Version>1.0.1</Version>
+    <Company>LiorBanai.NotificationWindow</Company>
+    <Product>LiorBanai.NotificationWindow</Product>
+    <Copyright>Lior Banai</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/LiorBanai/Notification-Popup-Window</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LiorBanai/Notification-Popup-Window</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageId>LiorBanaI.NotificationWindow</PackageId>
-    <Company>LiorBanaI.NotificationWindow</Company>
-    <Description>Update to old project</Description>
-    <PackageReleaseNotes>Add support for multiple notification windows</PackageReleaseNotes>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>portable</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>portable</DebugType>
-	<DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="PopupNotifier.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="PopupNotifierForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Grip.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Icon.ico" />
-  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.Build.Tasks.Git" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -62,4 +32,38 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="PopupNotifier.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="PopupNotifierForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
 </Project>

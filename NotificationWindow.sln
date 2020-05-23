@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationWindow", "Notif
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp", "DemoApp\DemoApp.csproj", "{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationWindow.Core", "NotificationWindow.Core\NotificationWindow.Core.csproj", "{E1AFB7A3-FD20-44F3-A940-EF53928DEC1A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,18 +39,6 @@ Global
 		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Release|x86.ActiveCfg = Release|Any CPU
 		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Release|x86.Build.0 = Release|Any CPU
-		{E1AFB7A3-FD20-44F3-A940-EF53928DEC1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1AFB7A3-FD20-44F3-A940-EF53928DEC1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1AFB7A3-FD20-44F3-A940-EF53928DEC1A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E1AFB7A3-FD20-44F3-A940-EF53928DEC1A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E1AFB7A3-FD20-44F3-A940-EF53928DEC1A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E1AFB7A3-FD20-44F3-A940-EF53928DEC1A}.Debug|x86.Build.0 = Debug|Any CPU
-		{E1AFB7A3-FD20-44F3-A940-EF53928DEC1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1AFB7A3-FD20-44F3-A940-EF53928DEC1A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1AFB7A3-FD20-44F3-A940-EF53928DEC1A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E1AFB7A3-FD20-44F3-A940-EF53928DEC1A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E1AFB7A3-FD20-44F3-A940-EF53928DEC1A}.Release|x86.ActiveCfg = Release|Any CPU
-		{E1AFB7A3-FD20-44F3-A940-EF53928DEC1A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
