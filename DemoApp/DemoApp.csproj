@@ -68,11 +68,10 @@
     <None Include="Resources\157_GetPermission_48x48_72.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NotificationWindow\NotificationWindow.csproj" />
-    <ProjectReference Include="..\Tulpep.NotificationWindow\NotificationWindow.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Remove="obj\x86\Debug\.NETFramework,Version=v4.0,Profile=Client.AssemblyAttributes.cs" />
     <Compile Remove="obj\x86\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NotificationWindow\NotificationWindow.csproj" />
   </ItemGroup>
 </Project>

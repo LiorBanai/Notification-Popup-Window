@@ -1,19 +1,8 @@
-﻿/*
- *	Created/modified in 2011 by Simon Baer
- *	
- *  Based on the Code Project article by Nicolas Wälti:
- *  http://www.codeproject.com/KB/cpp/PopupNotifier.aspx
- * 
- *  Licensed under the Code Project Open License (CPOL).
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -257,7 +246,7 @@ namespace NotificationWindow
         [Description("Time in milliseconds the window is displayed.")]
         public int Delay { get; set; }
 
-        [Category("Behavior"), DefaultValue(1000)]
+        [Category("Behavior"), DefaultValue(5000)]
         [Description("Time in milliseconds needed to make the window appear or disappear.")]
         public int AnimationDuration { get; set; }
 
@@ -304,7 +293,7 @@ namespace NotificationWindow
             AnimationDuration = 1000;
             Size = new Size(400, 100);
 
-            frmPopup = new PopupNotifierForm(this);            
+            frmPopup = new PopupNotifierForm(this);
             frmPopup.FormBorderStyle = FormBorderStyle.None;
             frmPopup.StartPosition = FormStartPosition.Manual;
             frmPopup.FormBorderStyle = FormBorderStyle.None;
@@ -322,9 +311,9 @@ namespace NotificationWindow
             tmrWait = new Timer();
             tmrWait.Tick += tmWait_Tick;
         }
-        private static object lockobj=new  object();
+        private static object lockobj = new object();
 
-    
+
         private static void Remove(int value)
         {
             lock (lockobj)
@@ -334,8 +323,9 @@ namespace NotificationWindow
         }
         private void SetNextPosition()
         {
-            lock(lockobj)
-            { positions.Sort();
+            lock (lockobj)
+            {
+                positions.Sort();
                 int minimum = 1;
                 foreach (var pos in positions)
                 {
@@ -352,7 +342,7 @@ namespace NotificationWindow
         /// </summary>
         public void Popup()
         {
-         
+
             if (!disposed)
             {
                 if (!frmPopup.Visible)
@@ -361,12 +351,12 @@ namespace NotificationWindow
                     frmPopup.Size = Size;
                     if (Scroll)
                     {
-                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition *frmPopup.Height;
+                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
                         posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
                     }
                     else
                     {
-                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom -currentPosition * frmPopup.Height;
+                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
                         posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
                     }
                     opacityStart = 0;
@@ -374,7 +364,7 @@ namespace NotificationWindow
 
                     frmPopup.Opacity = opacityStart;
                     frmPopup.Location = new Point(Screen.PrimaryScreen.WorkingArea.Right - frmPopup.Size.Width - 1, posStart);
-                    ShowInactiveTopmost(frmPopup);                    
+                    ShowInactiveTopmost(frmPopup);
                     isAppearing = true;
 
                     tmrWait.Interval = Delay;
@@ -396,8 +386,8 @@ namespace NotificationWindow
                         }
                         else
                         {
-                            posStart = Screen.PrimaryScreen.WorkingArea.Bottom -currentPosition * frmPopup.Height;
-                            posStop = Screen.PrimaryScreen.WorkingArea.Bottom -  currentPosition *frmPopup.Height;
+                            posStart = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
+                            posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
                         }
                         opacityStart = frmPopup.Opacity;
                         opacityStop = 1;
@@ -500,6 +490,10 @@ namespace NotificationWindow
         /// <param name="e"></param>
         private void tmAnimation_Tick(object sender, EventArgs e)
         {
+            //if (Utils.IdleTime().TotalSeconds > 30)
+            //{
+            //    return;
+            //}
             long elapsed = sw.ElapsedMilliseconds;
 
             int posCurrent = (int)(posStart + (posStop - posStart) * elapsed / realAnimationDuration);
