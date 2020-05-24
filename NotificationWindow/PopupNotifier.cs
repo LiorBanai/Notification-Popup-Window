@@ -490,10 +490,10 @@ namespace NotificationWindow
         /// <param name="e"></param>
         private void tmAnimation_Tick(object sender, EventArgs e)
         {
-            //if (Utils.IdleTime().TotalSeconds > 30)
-            //{
-            //    return;
-            //}
+            if (Utils.IdleTime().TotalSeconds > 30)
+            {
+                return;
+            }
             long elapsed = sw.ElapsedMilliseconds;
 
             int posCurrent = (int)(posStart + (posStop - posStart) * elapsed / realAnimationDuration);
