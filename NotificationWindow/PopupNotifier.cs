@@ -71,6 +71,7 @@ namespace NotificationWindow
         private Timer tmrWait;
 
         private bool isAppearing = true;
+        private bool markedForDisposed = false;
         private bool mouseIsOn = false;
         private int maxPosition;
         private double maxOpacity;
@@ -372,7 +373,6 @@ namespace NotificationWindow
                     realAnimationDuration = AnimationDuration;
                     tmrAnimation.Start();
                     sw = System.Diagnostics.Stopwatch.StartNew();
-                    System.Diagnostics.Debug.WriteLine("Animation started.");
                 }
                 else
                 {
@@ -394,7 +394,6 @@ namespace NotificationWindow
                         isAppearing = true;
                         realAnimationDuration = Math.Max((int)sw.ElapsedMilliseconds, 1);
                         sw.Restart();
-                        System.Diagnostics.Debug.WriteLine("Animation direction changed.");
                     }
                     frmPopup.Invalidate();
                 }
@@ -406,11 +405,13 @@ namespace NotificationWindow
         /// </summary>
         public void Hide()
         {
-            System.Diagnostics.Debug.WriteLine("Animation stopped.");
-            System.Diagnostics.Debug.WriteLine("Wait timer stopped.");
             tmrAnimation.Stop();
             tmrWait.Stop();
             frmPopup.Hide();
+            if (markedForDisposed)
+            {
+                Dispose();
+            }
         }
 
         /// <summary>
@@ -421,12 +422,10 @@ namespace NotificationWindow
         /// <param name="e"></param>
         private void frmPopup_ContextMenuClosed(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Menu closed.");
             if (!mouseIsOn)
             {
                 tmrWait.Interval = Delay;
                 tmrWait.Start();
-                System.Diagnostics.Debug.WriteLine("Wait timer started.");
             }
         }
 
@@ -439,9 +438,7 @@ namespace NotificationWindow
         /// <param name="e"></param>
         private void frmPopup_ContextMenuOpened(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Menu opened.");
             tmrWait.Stop();
-            System.Diagnostics.Debug.WriteLine("Wait timer stopped.");
         }
 
         /// <summary>
@@ -521,7 +518,6 @@ namespace NotificationWindow
 
                 sw.Reset();
                 tmrAnimation.Stop();
-                System.Diagnostics.Debug.WriteLine("Animation stopped.");
 
                 if (isAppearing)
                 {
@@ -547,13 +543,14 @@ namespace NotificationWindow
                     {
                         tmrWait.Stop();
                         tmrWait.Start();
-                        System.Diagnostics.Debug.WriteLine("Wait timer started.");
                     }
                 }
                 else
                 {
                     frmPopup.Hide();
                     Remove(currentPosition);
+                    if (markedForDisposed)
+                        Dispose();
                 }
             }
         }
@@ -565,12 +562,10 @@ namespace NotificationWindow
         /// <param name="e"></param>
         private void tmWait_Tick(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Wait timer elapsed.");
             tmrWait.Stop();
             tmrAnimation.Interval = AnimationInterval;
             tmrAnimation.Start();
             sw.Restart();
-            System.Diagnostics.Debug.WriteLine("Animation started.");
         }
 
         /// <summary>
@@ -580,12 +575,10 @@ namespace NotificationWindow
         /// <param name="e"></param>
         private void frmPopup_MouseLeave(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("MouseLeave");
             if (frmPopup.Visible && (OptionsMenu == null || !OptionsMenu.Visible))
             {
                 tmrWait.Interval = Delay;
                 tmrWait.Start();
-                System.Diagnostics.Debug.WriteLine("Wait timer started.");
             }
             mouseIsOn = false;
         }
@@ -597,18 +590,14 @@ namespace NotificationWindow
         /// <param name="e"></param>
         private void frmPopup_MouseEnter(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("MouseEnter");
             if (!isAppearing)
             {
                 frmPopup.Top = maxPosition;
                 frmPopup.Opacity = maxOpacity;
                 tmrAnimation.Stop();
-                System.Diagnostics.Debug.WriteLine("Animation stopped.");
             }
 
             tmrWait.Stop();
-            System.Diagnostics.Debug.WriteLine("Wait timer stopped.");
-
             mouseIsOn = true;
         }
 
@@ -620,9 +609,19 @@ namespace NotificationWindow
         {
             if (!disposed)
             {
+                if (isAppearing)
+                {
+                    markedForDisposed = true;
+                    return;
+                }
+
                 if (disposing)
                 {
                     frmPopup?.Dispose();
+                    tmrAnimation.Tick -= tmAnimation_Tick;
+                    tmrWait.Tick -= tmWait_Tick;
+                    tmrAnimation.Dispose();
+                    tmrWait.Dispose();
                 }
                 disposed = true;
             }
