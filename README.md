@@ -6,12 +6,12 @@
     <img src="https://img.shields.io/github/issues/LiorBanai/Notification-Popup-Window"  alt="Issues"/>
 </a>
 <a href="https://github.com/LiorBanai/Notification-Popup-Window/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/LiorBanaiNotification-Popup-Window"  alt="License"/>
+    <img src="https://img.shields.io/github/license/LiorBanai/Notification-Popup-Window"  alt="License"/>
 </a>
 
-   [![Nuget](https://img.shields.io/nuget/v/LiorBanai.Notification-Popup-Window)](https://www.nuget.org/packages/LiorBanai.NotificationWindow/)
+   [![Nuget](https://img.shields.io/nuget/v/LiorBanai.NotificationWindow)](https://www.nuget.org/packages/LiorBanaI.NotificationWindow/)
 <a href="https://github.com/LiorBanai/Notification-Popup-Window/releases"> 
-    <img src="https://img.shields.io/github/v/release/LiorBanaiNotification-Popup-Window"  alt="Latest Release"/>
+    <img src="https://img.shields.io/github/v/release/LiorBanai/Notification-Popup-Window"  alt="Latest Release"/>
 </a> 
  <a href="https://github.com/LiorBanai/Notification-Popup-Window/compare/V1.0.0...master">
     <img src="https://img.shields.io/github/commits-since/LiorBanai/Notification-Popup-Window/latest"  alt="Commits Since Latest Release"/>
