@@ -8,7 +8,6 @@
 <a href="https://github.com/LiorBanai/Notification-Popup-Window/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/LiorBanai/Notification-Popup-Window"  alt="License"/>
 </a>
-
    [![Nuget](https://img.shields.io/nuget/v/LiorBanai.NotificationWindow)](https://www.nuget.org/packages/LiorBanaI.NotificationWindow/)
 <a href="https://github.com/LiorBanai/Notification-Popup-Window/releases"> 
     <img src="https://img.shields.io/github/v/release/LiorBanai/Notification-Popup-Window"  alt="Latest Release"/>
