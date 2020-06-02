@@ -177,6 +177,9 @@ namespace NotificationWindow
         [Description("Whether to scroll the window or only fade it.")]
         public bool Scroll { get; set; }
 
+        [Category("Behavior"), DefaultValue(true)]
+        [Description("Do not show popup when running a program in full screen.")]
+        public bool IgnoreWhenFullScreen { get; set; }
         [Category("Content")]
         [Description("Content text to display.")]
         public string ContentText { get; set; }
@@ -343,7 +346,7 @@ namespace NotificationWindow
         /// </summary>
         public void Popup()
         {
-
+            if (IgnoreWhenFullScreen && Utils.IsForegroundFullScreen()) return;
             if (!disposed)
             {
                 if (!frmPopup.Visible)
