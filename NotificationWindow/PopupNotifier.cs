@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
@@ -16,7 +17,7 @@ namespace NotificationWindow
     [DefaultEvent("Click")]
     public class PopupNotifier : Component
     {
-        public static List<int> positions = new List<int>();
+        public static readonly List<int> positions = new List<int>();
         private int currentPosition;
         #region Windows API
         private const int SW_SHOWNOACTIVATE = 4;
@@ -177,9 +178,12 @@ namespace NotificationWindow
         [Description("Whether to scroll the window or only fade it.")]
         public bool Scroll { get; set; }
 
-        [Category("Behavior"), DefaultValue(true)]
+        [Category("Behavior"), DefaultValue(false)]
         [Description("Do not show popup when running a program in full screen.")]
         public bool IgnoreWhenFullScreen { get; set; }
+
+        public bool IsAnyPopupsStillVisible => positions.Any();
+
         [Category("Content")]
         [Description("Content text to display.")]
         public string ContentText { get; set; }
