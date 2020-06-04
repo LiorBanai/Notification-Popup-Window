@@ -35,7 +35,8 @@ namespace DemoApp
             popupNotifier1.Scroll = chkScroll.Checked;
             popupNotifier1.IsRightToLeft = chkIsRightToLeft.Checked;
             popupNotifier1.Image = chkIcon.Checked ? Resources._157_GetPermission_48x48_72 : null;
-
+            popupNotifier1.ContentColor = lblTextColor.BackColor;
+            popupNotifier1.TitleColor = lblColorValue.BackColor;
             popupNotifier1.Popup();
         }
 
@@ -76,9 +77,31 @@ namespace DemoApp
                 popupNotifier2.Scroll = chkScroll.Checked;
                 popupNotifier2.IsRightToLeft = chkIsRightToLeft.Checked;
                 popupNotifier2.Image = chkIcon.Checked ? Resources._157_GetPermission_48x48_72 : null;
-
+                popupNotifier2.ContentColor = lblTextColor.BackColor;
+                popupNotifier2.TitleColor = lblColorValue.BackColor;
                 popupNotifier2.Popup();
             }
+        }
+
+        private void lblColorValue_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                lblColorValue.BackColor = colorDialog1.Color;
+            }
+        }
+
+        private void lblTextColor_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                lblTextColor.BackColor = colorDialog1.Color;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            popupNotifier1 = new PopupNotifier();
         }
     }
 }
