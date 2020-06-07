@@ -31,7 +31,9 @@ This project is based on a [Notification Window](http://www.codeproject.com/Arti
 - Set all paddings around icon, title and content
 - Sptionally display a close button
 - Optionally display a button which opens a context menu
-- Supports right to left languages like Persian and Arabic
+- Supports right to left languages like Persian,Arabic and Hebrew.
+- Supports multiple popups at the same time.
+- Supports Not showing popup when other program is running in full screen mode
 
 ![Screenshot](Screenshots/example2.png)
 
@@ -46,4 +48,3 @@ popupNotifier.Popup();
 
 
 ```
-This repository contains a Visual Studio Test Project if you want a working example.
