@@ -38,7 +38,7 @@ This project is based on a [Notification Window](http://www.codeproject.com/Arti
 ![Screenshot](Screenshots/example2.png)
 
 ### How to use it
-Download from the release section and use it this way:
+Download from the release section (or use nuget: https://www.nuget.org/packages/LiorBanai.NotificationWindow/) and use it this way:
 ```cs
 var popupNotifier = new PopupNotifier();
 popupNotifier.TitleText = "Title of popup";
