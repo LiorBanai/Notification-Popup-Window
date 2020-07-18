@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationWindow", "Notif
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp", "DemoApp\DemoApp.csproj", "{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationWindow.UnitTests", "NotificationWindow.UnitTests\NotificationWindow.UnitTests.csproj", "{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,18 @@ Global
 		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Release|x86.ActiveCfg = Release|Any CPU
 		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Release|x86.Build.0 = Release|Any CPU
+		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Debug|x86.Build.0 = Debug|Any CPU
+		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Release|x86.ActiveCfg = Release|Any CPU
+		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
