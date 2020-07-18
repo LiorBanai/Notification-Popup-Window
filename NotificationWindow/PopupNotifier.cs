@@ -301,9 +301,11 @@ namespace NotificationWindow
             AnimationDuration = 1000;
             Size = new Size(400, 100);
 
-            frmPopup = new PopupNotifierForm(this);
-            frmPopup.FormBorderStyle = FormBorderStyle.None;
-            frmPopup.StartPosition = FormStartPosition.Manual;
+            frmPopup = new PopupNotifierForm(this)
+            {
+                FormBorderStyle = FormBorderStyle.None,
+                StartPosition = FormStartPosition.Manual
+            };
             frmPopup.FormBorderStyle = FormBorderStyle.None;
             frmPopup.MouseEnter += frmPopup_MouseEnter;
             frmPopup.MouseLeave += frmPopup_MouseLeave;
@@ -467,6 +469,7 @@ namespace NotificationWindow
         private void frmPopup_CloseClick(object sender, EventArgs e)
         {
             Hide();
+            Remove(currentPosition);
             Close?.Invoke(this, EventArgs.Empty);
         }
 

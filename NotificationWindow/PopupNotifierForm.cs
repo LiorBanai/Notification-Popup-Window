@@ -214,20 +214,17 @@ namespace NotificationWindow
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (RectClose.Contains(e.X, e.Y) && (CloseClick != null))
+                if (RectClose.Contains(e.X, e.Y))
                 {
-                    CloseClick(this, EventArgs.Empty);
+                    CloseClick?.Invoke(this, EventArgs.Empty);
                 }
-                if (RectContentText.Contains(e.X, e.Y) && (LinkClick != null))
+                if (RectContentText.Contains(e.X, e.Y))
                 {
-                    LinkClick(this, EventArgs.Empty);
+                    LinkClick?.Invoke(this, EventArgs.Empty);
                 }
                 if (RectOptions.Contains(e.X, e.Y) && (Parent.OptionsMenu != null))
                 {
-                    if (ContextMenuOpened != null)
-                    {
-                        ContextMenuOpened(this, EventArgs.Empty);
-                    }
+                    ContextMenuOpened?.Invoke(this, EventArgs.Empty);
                     Parent.OptionsMenu.Show(this, new Point(RectOptions.Right - Parent.OptionsMenu.Width, RectOptions.Bottom));
                     Parent.OptionsMenu.Closed += OptionsMenu_Closed;
                 }
@@ -243,10 +240,7 @@ namespace NotificationWindow
         {
             Parent.OptionsMenu.Closed -= OptionsMenu_Closed;
 
-            if (ContextMenuClosed != null)
-            {
-                ContextMenuClosed(this, EventArgs.Empty);
-            }
+            ContextMenuClosed?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

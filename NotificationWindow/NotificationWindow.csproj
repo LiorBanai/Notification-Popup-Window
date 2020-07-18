@@ -12,7 +12,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageId>LiorBanai.NotificationWindow</PackageId>
 		<Authors>LiorBanai</Authors>
-		<Version>1.0.4.1</Version>
+		<Version>1.0.5</Version>
 		<Company>LiorBanai.NotificationWindow</Company>
 		<Product>LiorBanai.NotificationWindow</Product>
 		<Copyright>Lior Banai</Copyright>
@@ -20,8 +20,9 @@
 		<PackageProjectUrl>https://github.com/LiorBanai/Notification-Popup-Window</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/LiorBanai/Notification-Popup-Window</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageReleaseNotes>add net471 target framework</PackageReleaseNotes>
+		<PackageReleaseNotes>fix:Close button does not decrement the positions #5</PackageReleaseNotes>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+		<FileVersion>1.0.5.0</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -33,7 +34,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="System.Resources.Extensions" Version="4.6.0"/>
+		<PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
 	</ItemGroup>
 
 	<ItemGroup>
