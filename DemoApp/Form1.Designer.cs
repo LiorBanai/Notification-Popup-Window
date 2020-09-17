@@ -65,13 +65,15 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtBorder = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.txtHeaderHeight = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExit
             // 
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.Location = new System.Drawing.Point(573, 12);
+            this.btnExit.Location = new System.Drawing.Point(852, 12);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
             this.btnExit.TabIndex = 0;
@@ -325,11 +327,12 @@
             // 
             // btnMore
             // 
-            this.btnMore.Location = new System.Drawing.Point(99, 270);
+            this.btnMore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMore.Location = new System.Drawing.Point(772, 270);
             this.btnMore.Name = "btnMore";
-            this.btnMore.Size = new System.Drawing.Size(75, 23);
+            this.btnMore.Size = new System.Drawing.Size(153, 23);
             this.btnMore.TabIndex = 24;
-            this.btnMore.Text = "more";
+            this.btnMore.Text = "Multiple Popups";
             this.btnMore.UseVisualStyleBackColor = true;
             this.btnMore.Click += new System.EventHandler(this.btnMore_Click);
             // 
@@ -383,26 +386,45 @@
             // 
             // txtBorder
             // 
-            this.txtBorder.Location = new System.Drawing.Point(514, 266);
+            this.txtBorder.Location = new System.Drawing.Point(825, 106);
             this.txtBorder.Name = "txtBorder";
             this.txtBorder.Size = new System.Drawing.Size(100, 24);
             this.txtBorder.TabIndex = 29;
-            this.txtBorder.Text = "0";
+            this.txtBorder.Text = "5";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(320, 270);
+            this.label9.Location = new System.Drawing.Point(631, 110);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(188, 17);
             this.label9.TabIndex = 30;
             this.label9.Text = "Border Size (zero or positive):";
             // 
+            // txtHeaderHeight
+            // 
+            this.txtHeaderHeight.Location = new System.Drawing.Point(825, 134);
+            this.txtHeaderHeight.Name = "txtHeaderHeight";
+            this.txtHeaderHeight.Size = new System.Drawing.Size(100, 24);
+            this.txtHeaderHeight.TabIndex = 31;
+            this.txtHeaderHeight.Text = "10";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(631, 138);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(94, 17);
+            this.label11.TabIndex = 32;
+            this.label11.Text = "Header Height";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(660, 302);
+            this.ClientSize = new System.Drawing.Size(939, 302);
+            this.Controls.Add(this.txtHeaderHeight);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.txtBorder);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.lblTextColor);
@@ -434,7 +456,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.btnExit);
-            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -486,6 +508,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtBorder;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtHeaderHeight;
+        private System.Windows.Forms.Label label11;
     }
 }
 

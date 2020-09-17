@@ -404,7 +404,6 @@ namespace NotificationWindow
                         CreateForm();
                     frmPopup.Size = Size;
                     SetNextPosition();
-                    ContentText = currentIndex.ToString();
                     frmPopup.Closed += FrmPopup_Closed;
                     opacityStart = 0;
                     opacityStop = 1;
