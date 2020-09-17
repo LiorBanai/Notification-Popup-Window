@@ -1,9 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net48</TargetFramework>
+	  <TargetFrameworks>netcoreapp3.1;net472;net471</TargetFrameworks>
+	  <UseWindowsForms>true</UseWindowsForms>
     <AssemblyTitle>DemoApp</AssemblyTitle>
     <Product>DemoApp</Product>
     <Copyright></Copyright>

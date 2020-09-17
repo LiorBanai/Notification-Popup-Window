@@ -48,6 +48,8 @@ namespace DemoApp
 
         private void btnMore_Click(object sender, EventArgs e)
         {
+            int h= new Random().Next(100,200);
+            int borderSize = new Random().Next(0, 20);
             using (var popupNotifier2 = new PopupNotifier())
             {
                 popupNotifier2.BodyColor = Color.FromArgb(128, 128, 255);
@@ -55,16 +57,18 @@ namespace DemoApp
                 popupNotifier2.ContentText = null;
                 popupNotifier2.GradientPower = 300;
                 popupNotifier2.HeaderHeight = 20;
+                popupNotifier2.BorderSize = 10;
                 popupNotifier2.Image = null;
+                popupNotifier2.BorderSize = borderSize;
                 popupNotifier2.IsRightToLeft = false;
                 popupNotifier2.OptionsMenu = contextMenuStrip1;
-                popupNotifier2.Size = new Size(400, 100);
+                popupNotifier2.Size = new Size(400, h);
                 popupNotifier2.TitleFont = new Font("Segoe UI", 9F);
                 popupNotifier2.TitleText = null;
                 popupNotifier2.TitleText = txtTitle.Text;
                 popupNotifier2.ContentText = txtText.Text;
                 popupNotifier2.GradientPower = 300;
-                popupNotifier2.HeaderHeight = 20;
+                popupNotifier2.HeaderHeight = 0;
                 popupNotifier2.ShowCloseButton = chkClose.Checked;
                 popupNotifier2.ShowOptionsButton = chkMenu.Checked;
                 popupNotifier2.ShowGrip = chkGrip.Checked;

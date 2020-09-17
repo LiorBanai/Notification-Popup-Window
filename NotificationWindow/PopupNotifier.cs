@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -17,8 +18,8 @@ namespace NotificationWindow
     [DefaultEvent("Click")]
     public class PopupNotifier : Component
     {
-        public static readonly List<int> positions = new List<int>();
-        private int currentPosition;
+        internal static List<(int index, int topPosition, PopupNotifier PopupNotifier)> positions = new List<(int index, int topPosition, PopupNotifier PopupNotifier)>();
+        private int currentIndex;
         #region Windows API
         private const int SW_SHOWNOACTIVATE = 4;
         private const int HWND_TOPMOST = -1;
@@ -76,12 +77,12 @@ namespace NotificationWindow
         private bool mouseIsOn = false;
         private int maxPosition;
         private double maxOpacity;
-        private int posStart;
+        public int posStart;
         private int posStop;
         private double opacityStart;
         private double opacityStop;
         private int realAnimationDuration;
-        private System.Diagnostics.Stopwatch sw;
+        private Stopwatch sw;
 
         #region Properties
 
@@ -104,6 +105,20 @@ namespace NotificationWindow
         [Category("Appearance"), DefaultValue(typeof(Color), "WindowFrame")]
         [Description("Color of the window border.")]
         public Color BorderColor { get; set; }
+
+        [Category("Appearance"), DefaultValue(0)]
+        [Description("Size of the window border.")]
+        public int BorderSize
+        {
+            get => borderSize;
+            set
+            {
+                if (value < 0)
+                    value = 0;
+                headerHeight = value;
+                borderSize = value;
+            }
+        }
 
         [Category("Buttons"), DefaultValue(typeof(Color), "WindowFrame")]
         [Description("Border color of the close and options buttons when the mouse is over them.")]
@@ -137,21 +152,14 @@ namespace NotificationWindow
             {
                 if (imageSize.Width == 0)
                 {
-                    if (Image != null)
-                    {
-                        return Image.Size;
-                    }
-                    else
-                    {
-                        return new Size(0, 0);
-                    }
+                    return Image?.Size ?? new Size(0, 0);
                 }
                 else
                 {
                     return imageSize;
                 }
             }
-            set { imageSize = value; }
+            set => imageSize = value;
         }
 
         public void ResetImageSize()
@@ -159,13 +167,16 @@ namespace NotificationWindow
             imageSize = Size.Empty;
         }
 
+        public void UpdatePosition(int startPosition) => posStart = startPosition;
         private bool ShouldSerializeImageSize()
         {
             return !imageSize.Equals(Size.Empty);
         }
 
         private Size imageSize = new Size(0, 0);
-
+        private int headerHeight;
+        private int borderSize;
+        private static object lockobj = new object();
         [Category("Image")]
         [Description("Icon image to display.")]
         public Image Image { get; set; }
@@ -236,7 +247,16 @@ namespace NotificationWindow
 
         [Category("Header"), DefaultValue(9)]
         [Description("Height of window header.")]
-        public int HeaderHeight { get; set; }
+        public int HeaderHeight
+        {
+            get => headerHeight;
+            set
+            {
+                if (value <= 0)
+                    value = 1;
+                headerHeight = value;
+            }
+        }
 
         [Category("Buttons"), DefaultValue(true)]
         [Description("Whether to show the close button.")]
@@ -301,6 +321,16 @@ namespace NotificationWindow
             AnimationDuration = 1000;
             Size = new Size(400, 100);
 
+            CreateForm();
+            tmrAnimation = new Timer();
+            tmrAnimation.Tick += tmAnimation_Tick;
+
+            tmrWait = new Timer();
+            tmrWait.Tick += tmWait_Tick;
+        }
+
+        private void CreateForm()
+        {
             frmPopup = new PopupNotifierForm(this)
             {
                 FormBorderStyle = FormBorderStyle.None,
@@ -314,61 +344,68 @@ namespace NotificationWindow
             frmPopup.ContextMenuOpened += frmPopup_ContextMenuOpened;
             frmPopup.ContextMenuClosed += frmPopup_ContextMenuClosed;
             frmPopup.VisibleChanged += frmPopup_VisibleChanged;
-
-            tmrAnimation = new Timer();
-            tmrAnimation.Tick += tmAnimation_Tick;
-
-            tmrWait = new Timer();
-            tmrWait.Tick += tmWait_Tick;
         }
-        private static object lockobj = new object();
 
 
-        private static void Remove(int value)
-        {
-            lock (lockobj)
-            {
-                positions.Remove(value);
-            }
-        }
         private void SetNextPosition()
         {
             lock (lockobj)
             {
-                positions.Sort();
-                int minimum = 1;
+                int minimum = 0;
+                positions = positions.OrderBy(i => i.index).ToList();
                 foreach (var pos in positions)
                 {
-                    if (pos == minimum) minimum = pos + 1;
+                    if (pos.index == minimum) minimum = pos.index + 1;
                 }
 
-                currentPosition = minimum;
-                positions.Add(minimum);
+                currentIndex = minimum;
+                if (minimum > 0)
+                {
+                    posStop = posStart = positions[currentIndex - 1].topPosition - frmPopup.Height;
+                }
+                if (minimum == 0)
+                {
+                    posStop = posStart = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
+                }
+
+                positions.Insert(currentIndex, (currentIndex, posStart - BorderSize, this));
+                Debug.WriteLine("insert: " + currentIndex + " (" + string.Join(",", positions.Select(i => i.index)) + ")");
+                for (var index = 0; index < positions.Count; index++)
+                {
+                    (int index, int topPosition, PopupNotifier PopupNotifier) data = positions[index];
+                    if (data.index > currentIndex)
+                    {
+                        var pos = positions[index - 1].topPosition - frmPopup.Height;
+                        data.PopupNotifier.posStart = pos;
+                        data.PopupNotifier.RePosition();
+                    }
+                }
             }
         }
+
+        private void RePosition()
+        {
+            //frmPopup.Location=new Point(frmPopup.Location.X, posStart);
+        }
+
         /// <summary>
         /// Show the notification window if it is not already visible.
         /// If the window is currently disappearing, it is shown again.
         /// </summary>
         public void Popup()
         {
+
             if (IgnoreWhenFullScreen && Utils.IsForegroundFullScreen()) return;
             if (!disposed)
             {
                 if (!frmPopup.Visible)
                 {
-                    SetNextPosition();
+                    if (frmPopup.IsDisposed)
+                        CreateForm();
                     frmPopup.Size = Size;
-                    if (Scroll)
-                    {
-                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
-                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
-                    }
-                    else
-                    {
-                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
-                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
-                    }
+                    SetNextPosition();
+                    ContentText = currentIndex.ToString();
+                    frmPopup.Closed += FrmPopup_Closed;
                     opacityStart = 0;
                     opacityStop = 1;
 
@@ -388,16 +425,16 @@ namespace NotificationWindow
                     if (!isAppearing)
                     {
                         frmPopup.Size = Size;
-                        if (Scroll)
-                        {
-                            posStart = frmPopup.Top;
-                            posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
-                        }
-                        else
-                        {
-                            posStart = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
-                            posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
-                        }
+                        //if (Scroll)
+                        //{
+                        //    posStart = frmPopup.Top;
+                        //    posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
+                        //}
+                        //else
+                        //{
+                        //    posStart = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
+                        //    posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
+                        //}
                         opacityStart = frmPopup.Opacity;
                         opacityStop = 1;
                         isAppearing = true;
@@ -409,6 +446,17 @@ namespace NotificationWindow
             }
         }
 
+        private void FrmPopup_Closed(object sender, EventArgs e)
+        {
+            frmPopup.Closed -= FrmPopup_Closed;
+            lock (lockobj)
+            {
+                Debug.WriteLine("remove: " + currentIndex);
+                var item = positions.First(i => i.index == currentIndex);
+                positions.Remove(item);
+            }
+        }
+
         /// <summary>
         /// Hide the notification window.
         /// </summary>
@@ -416,7 +464,7 @@ namespace NotificationWindow
         {
             tmrAnimation.Stop();
             tmrWait.Stop();
-            frmPopup.Hide();
+            frmPopup.Close();
             if (markedForDisposed)
             {
                 Dispose();
@@ -469,7 +517,6 @@ namespace NotificationWindow
         private void frmPopup_CloseClick(object sender, EventArgs e)
         {
             Hide();
-            Remove(currentPosition);
             Close?.Invoke(this, EventArgs.Empty);
         }
 
@@ -557,8 +604,7 @@ namespace NotificationWindow
                 }
                 else
                 {
-                    frmPopup.Hide();
-                    Remove(currentPosition);
+                    frmPopup.Close();
                     if (markedForDisposed)
                         Dispose();
                 }
