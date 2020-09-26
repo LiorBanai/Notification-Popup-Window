@@ -1,0 +1,10 @@
+name: Version Increment
+on: 
+  workflow_dispatch:
+        
+jobs:  
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Bump Versions
+      uses: remorses/bump-version@v8
