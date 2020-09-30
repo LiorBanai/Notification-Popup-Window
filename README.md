@@ -1,7 +1,7 @@
 # Notification Popup Window
 ### A notification window that appears on the lower right part of the screen for .NET
 
-   [![Nuget](https://img.shields.io/nuget/dt/LiorBanai.NotificationWindow)](https://www.nuget.org/packages/LiorBanai.NotificationWindow/) [![Build Status](https://liorbanai.visualstudio.com/Notification-Window/_apis/build/status/LiorBanai.Notification-Popup-Window?branchName=master)](https://liorbanai.visualstudio.com/Notification-Window/_build/latest?definitionId=5&branchName=master)
+   [![Nuget](https://img.shields.io/nuget/dt/LiorBanai.NotificationWindow)](https://www.nuget.org/packages/LiorBanai.NotificationWindow/) ![CodeQL](https://github.com/LiorBanai/Notification-Popup-Window/workflows/CodeQL/badge.svg)  [![Build Status](https://liorbanai.visualstudio.com/Notification-Window/_apis/build/status/LiorBanai.Notification-Popup-Window?branchName=master)](https://liorbanai.visualstudio.com/Notification-Window/_build/latest?definitionId=5&branchName=master)
 <a href="https://github.com/LiorBanai/Notification-Popup-Window/issues">
     <img src="https://img.shields.io/github/issues/LiorBanai/Notification-Popup-Window"  alt="Issues"/>
 </a>
