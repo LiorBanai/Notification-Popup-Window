@@ -2,6 +2,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
 	  <TargetFrameworks>netcoreapp3.1;net472;net471</TargetFrameworks>
+	  <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
 	  <UseWindowsForms>true</UseWindowsForms>
     <AssemblyTitle>DemoApp</AssemblyTitle>
     <Product>DemoApp</Product>
@@ -25,7 +26,18 @@
     <LangVersion>7.3</LangVersion>
 	  <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
-  <ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Build.Tasks.Git" Version="1.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
+	</ItemGroup>
+	<ItemGroup>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Deployment" />
@@ -64,7 +76,8 @@
   <ItemGroup>
     <None Include="Resources\157_GetPermission_48x48_72.png" />
   </ItemGroup>
-  <ItemGroup>
+  
+	<ItemGroup>
     <Compile Remove="obj\x86\Debug\.NETFramework,Version=v4.0,Profile=Client.AssemblyAttributes.cs" />
     <Compile Remove="obj\x86\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
   </ItemGroup>
