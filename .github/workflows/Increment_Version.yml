@@ -19,5 +19,5 @@ jobs:
             - name: Bump versions
               uses: SiqiLu/dotnet-bump-version@1.0.1
               with:
-                  version_files: "**/*.csproj"
+                  version_files: .\NotificationWindow\NotificationWindow.csproj
                   github_token: ${{ secrets.GITHUB_TOKEN }}
