@@ -2,9 +2,22 @@ name: Version Increment
 on: 
   workflow_dispatch:
         
-jobs:  
-  build:
-    runs-on: ubuntu-20.04
-    steps:
-    - name: Bump Versions
-      uses: remorses/bump-version@v8
+jobs:
+    build:
+        runs-on: windows-latest
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup .NET Core
+              uses: actions/setup-dotnet@v1
+              with:
+                  dotnet-version: 3.1.201
+            - name: Install dependencies
+              run: dotnet restore
+            - name: Build
+              run: dotnet build --configuration Release --no-restore
+            - name: Bump versions
+              uses: SiqiLu/dotnet-bump-version@1.0.1
+              with:
+                  version_files: "**/*.csproj"
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
