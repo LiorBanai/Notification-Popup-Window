@@ -12,7 +12,7 @@
 <a href="https://github.com/LiorBanai/Notification-Popup-Window/releases"> 
     <img src="https://img.shields.io/github/v/release/LiorBanai/Notification-Popup-Window"  alt="Latest Release"/>
 </a> 
- <a href="https://github.com/LiorBanai/Notification-Popup-Window/compare/V1.0.0...master">
+ <a href="https://github.com/LiorBanai/Notification-Popup-Window/compare/V1.2.0...master">
     <img src="https://img.shields.io/github/commits-since/LiorBanai/Notification-Popup-Window/latest"  alt="Commits Since Latest Release"/>
 </a>
        
