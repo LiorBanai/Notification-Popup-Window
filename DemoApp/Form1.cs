@@ -6,6 +6,7 @@
 
 using DemoApp.Properties;
 using NotificationWindow;
+using NotificationWindow.DataTypes;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -37,6 +38,36 @@ namespace DemoApp
             popupNotifier1.Image = chkIcon.Checked ? Resources._157_GetPermission_48x48_72 : null;
             popupNotifier1.ContentColor = lblTextColor.BackColor;
             popupNotifier1.TitleColor = lblColorValue.BackColor;
+            popupNotifier1.PlaySystemSoundOnPopup = chkbSound.Checked;
+            if (rbAsterisk.Checked)
+            {
+                popupNotifier1.SystemSoundType = SystemSoundType.Asterisk;
+            }
+            if (rbBeep.Checked)
+            {
+                popupNotifier1.SystemSoundType = SystemSoundType.Beep;
+            }
+            if (rbExclamation.Checked)
+            {
+                popupNotifier1.SystemSoundType = SystemSoundType.Exclamation;
+            }
+            if (rbHand.Checked)
+            {
+                popupNotifier1.SystemSoundType = SystemSoundType.Hand;
+            }
+            if (rbQuestion.Checked)
+            {
+                popupNotifier1.SystemSoundType = SystemSoundType.Question;
+            }
+            if (rbNotification.Checked)
+            {
+                popupNotifier1.SystemSoundType = SystemSoundType.Notification;
+            }
+            if (rbCustom.Checked)
+            {
+                popupNotifier1.SystemSoundType = SystemSoundType.Custom;
+            }
+            popupNotifier1.SystemSoundFilePath = txtSoundPath.Text;
             popupNotifier1.Popup();
         }
 
@@ -48,7 +79,7 @@ namespace DemoApp
 
         private void btnMore_Click(object sender, EventArgs e)
         {
-            int h= new Random().Next(100,200);
+            int h = new Random().Next(100, 200);
             using (var popupNotifier2 = new PopupNotifier())
             {
                 popupNotifier2.BodyColor = Color.FromArgb(128, 128, 255);
@@ -58,7 +89,7 @@ namespace DemoApp
                 popupNotifier2.HeaderHeight = 20;
                 popupNotifier2.BorderSize = 10;
                 popupNotifier2.Image = null;
-                popupNotifier2.BorderSize = int.Parse(txtBorder.Text); 
+                popupNotifier2.BorderSize = int.Parse(txtBorder.Text);
                 popupNotifier2.IsRightToLeft = false;
                 popupNotifier2.OptionsMenu = contextMenuStrip1;
                 popupNotifier2.Size = new Size(400, h);
@@ -82,6 +113,29 @@ namespace DemoApp
                 popupNotifier2.Image = chkIcon.Checked ? Resources._157_GetPermission_48x48_72 : null;
                 popupNotifier2.ContentColor = lblTextColor.BackColor;
                 popupNotifier2.TitleColor = lblColorValue.BackColor;
+                popupNotifier2.PlaySystemSoundOnPopup = chkbSound.Checked;
+
+                if (rbExclamation.Checked)
+                {
+                    popupNotifier2.SystemSoundType = SystemSoundType.Exclamation;
+                }
+                if (rbHand.Checked)
+                {
+                    popupNotifier2.SystemSoundType = SystemSoundType.Hand;
+                }
+                if (rbQuestion.Checked)
+                {
+                    popupNotifier2.SystemSoundType = SystemSoundType.Question;
+                }
+                if (rbNotification.Checked)
+                {
+                    popupNotifier2.SystemSoundType = SystemSoundType.Notification;
+                }
+                if (rbCustom.Checked)
+                {
+                    popupNotifier2.SystemSoundType = SystemSoundType.Custom;
+                }
+                popupNotifier2.SystemSoundFilePath = txtSoundPath.Text;
                 popupNotifier2.Popup();
             }
         }
@@ -105,6 +159,18 @@ namespace DemoApp
         private void Form1_Load(object sender, EventArgs e)
         {
             popupNotifier1 = new PopupNotifier();
+        }
+
+        private void btnOpemSoundFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Wave Sound Files (*.wav)|*.wav";
+            dlg.ShowDialog();
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                txtSoundPath.Text = dlg.FileName;
+            }
         }
     }
 }

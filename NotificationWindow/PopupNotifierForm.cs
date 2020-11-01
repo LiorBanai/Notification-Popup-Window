@@ -358,7 +358,10 @@ namespace NotificationWindow
                 heightOfTitle = (int)e.Graphics.MeasureString("A", Parent.TitleFont).Height;
                 int titleX = Parent.TitlePadding.Left;
                 if (Parent.Image != null)
+                {
                     titleX += Parent.ImagePadding.Left + Parent.ImageSize.Width + Parent.ImagePadding.Right;
+                }
+
                 e.Graphics.DrawString(Parent.TitleText, Parent.TitleFont, brushTitle, titleX, Parent.HeaderHeight + Parent.TitlePadding.Top);
                 // draw content text, optionally with a bold part
                 Cursor = mouseOnLink ? Cursors.Hand : Cursors.Default;

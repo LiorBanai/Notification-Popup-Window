@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Microsoft.Win32;
+using NotificationWindow.DataTypes;
 using Timer = System.Windows.Forms.Timer;
 
 namespace NotificationWindow
@@ -114,7 +118,10 @@ namespace NotificationWindow
             set
             {
                 if (value < 0)
+                {
                     value = 0;
+                }
+
                 headerHeight = value;
                 borderSize = value;
             }
@@ -253,7 +260,10 @@ namespace NotificationWindow
             set
             {
                 if (value <= 0)
+                {
                     value = 1;
+                }
+
                 headerHeight = value;
             }
         }
@@ -289,6 +299,18 @@ namespace NotificationWindow
         [Category("Content")]
         [Description("Show Content Right To Left,نمایش پیغام چپ به راست فعال شود")]
         public bool IsRightToLeft { get; set; }
+
+        [Category("Behavior"), DefaultValue(false)]
+        [Description("boolean value indicates to use system sound on popup.")]
+        public bool PlaySystemSoundOnPopup { get; set; }
+
+        [Category("Behavior"), DefaultValue(10)]
+        [Description("Type of system sound to use")]
+        public SystemSoundType SystemSoundType { get; set; }
+       
+        [Category("Behavior"), DefaultValue("")]
+        [Description("Custom system sound to use. File ath to sound file")]
+        public string SystemSoundFilePath { get; set; }
         #endregion
 
         /// <summary>
@@ -296,7 +318,7 @@ namespace NotificationWindow
         /// </summary>
         public PopupNotifier()
         {
-            // set default values
+               // set default values
             HeaderColor = SystemColors.ControlDark;
             BodyColor = SystemColors.Control;
             TitleColor = Color.Gray;
@@ -355,7 +377,10 @@ namespace NotificationWindow
                 positions = positions.OrderBy(i => i.index).ToList();
                 foreach (var pos in positions)
                 {
-                    if (pos.index == minimum) minimum = pos.index + 1;
+                    if (pos.index == minimum)
+                    {
+                        minimum = pos.index + 1;
+                    }
                 }
 
                 currentIndex = minimum;
@@ -395,13 +420,21 @@ namespace NotificationWindow
         public void Popup()
         {
 
-            if (IgnoreWhenFullScreen && Utils.IsForegroundFullScreen()) return;
+            if (IgnoreWhenFullScreen && Utils.IsForegroundFullScreen())
+            {
+                return;
+            }
+
             if (!disposed)
             {
                 if (!frmPopup.Visible)
                 {
+                    PlaySoundIfNeeded();
                     if (frmPopup.IsDisposed)
+                    {
                         CreateForm();
+                    }
+
                     frmPopup.Size = Size;
                     SetNextPosition();
                     frmPopup.Closed += FrmPopup_Closed;
@@ -444,6 +477,73 @@ namespace NotificationWindow
                 }
             }
         }
+
+        private void PlaySoundIfNeeded()
+        {
+            if (PlaySystemSoundOnPopup)
+            {
+                switch (SystemSoundType)
+                {
+                    case SystemSoundType.Asterisk:
+                        System.Media.SystemSounds.Asterisk.Play();
+                        break;
+                    case SystemSoundType.Beep:
+                        System.Media.SystemSounds.Beep.Play();
+                        break;
+                    case SystemSoundType.Exclamation:
+                        System.Media.SystemSounds.Exclamation.Play();
+                        break;
+                    case SystemSoundType.Hand:
+                        System.Media.SystemSounds.Hand.Play();
+                        break;
+                    case SystemSoundType.Question:
+                        System.Media.SystemSounds.Question.Play();
+                        break;
+                    case SystemSoundType.Notification:
+                        try
+                        {
+                            try
+                            {
+                                using (RegistryKey key =
+                                    Registry.CurrentUser.OpenSubKey(
+                                        @"AppEvents\Schemes\Apps\.Default\Notification.Default\.Current"))
+                                {
+                                    object o = key?.GetValue(null); // pass null to get (Default)
+                                    if (o != null)
+                                    {
+                                        using (SoundPlayer theSound = new SoundPlayer((string) o))
+                                        {
+                                            theSound.Play();
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine($"unable to play notification sound:{e.Message}");
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
+                        break;
+                    case SystemSoundType.Custom:
+                        if (File.Exists(SystemSoundFilePath) && Path.GetExtension(SystemSoundFilePath)
+                            .EndsWith("wav", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            using (SoundPlayer theSound = new SoundPlayer(SystemSoundFilePath))
+                            {
+                                theSound.Play();
+                            }
+
+                        }
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }}
 
         private void FrmPopup_Closed(object sender, EventArgs e)
         {
@@ -605,7 +705,9 @@ namespace NotificationWindow
                 {
                     frmPopup.Close();
                     if (markedForDisposed)
+                    {
                         Dispose();
+                    }
                 }
             }
         }
