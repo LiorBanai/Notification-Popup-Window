@@ -165,8 +165,6 @@ namespace DemoApp
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Wave Sound Files (*.wav)|*.wav";
-            dlg.ShowDialog();
-
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 txtSoundPath.Text = dlg.FileName;
