@@ -32,9 +32,9 @@ This project is based on a [Notification Window](http://www.codeproject.com/Arti
 - Sptionally display a close button
 - Optionally display a button which opens a context menu
 - Supports right to left languages like Persian,Arabic and Hebrew.
-- Supports multiple popups at the same time.
-- Supports Not showing popup when other program is running in full screen mode
-
+- (new) Supports multiple popups at the same time.
+- (new) Supports Not showing popup when other program is running in full screen mode
+- (new) Add sound notification.
 ![Screenshot](Screenshots/example2.png)
 
 ### How to use it
