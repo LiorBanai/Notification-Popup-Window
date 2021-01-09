@@ -35,7 +35,7 @@ This project is based on a [Notification Window](http://www.codeproject.com/Arti
 - (new) Supports multiple popups at the same time.
 - (new) Supports Not showing popup when other program is running in full screen mode
 - (new) Add sound notification.
-![Screenshot](Screenshots/example2.png)
+
 
 ### How to use it
 Download from the release section (or use nuget: https://www.nuget.org/packages/LiorBanai.NotificationWindow/) and use it this way:
