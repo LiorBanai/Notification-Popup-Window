@@ -366,6 +366,8 @@ namespace NotificationWindow
             frmPopup.ContextMenuOpened += frmPopup_ContextMenuOpened;
             frmPopup.ContextMenuClosed += frmPopup_ContextMenuClosed;
             frmPopup.VisibleChanged += frmPopup_VisibleChanged;
+
+
         }
 
 
@@ -419,7 +421,7 @@ namespace NotificationWindow
         /// </summary>
         public void Popup()
         {
-
+            frmPopup.SetData();
             if (IgnoreWhenFullScreen && Utils.IsForegroundFullScreen())
             {
                 return;

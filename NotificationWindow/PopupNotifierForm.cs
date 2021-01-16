@@ -43,6 +43,10 @@ namespace NotificationWindow
         private Brush brushForeColor;
         private Brush brushLinkHover;
         private Brush brushContent;
+        private Label lblContent;
+        private SplitContainer splitContainer1;
+        private PictureBox Image;
+        private Label lblTitle;
         private Brush brushTitle;
 
         #endregion
@@ -53,6 +57,7 @@ namespace NotificationWindow
         /// <param name="parent">PopupNotifier</param>
         public PopupNotifierForm(PopupNotifier parent)
         {
+            InitializeComponent();
             Parent = parent;
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.ResizeRedraw, true);
@@ -63,8 +68,27 @@ namespace NotificationWindow
             MouseMove += PopupNotifierForm_MouseMove;
             MouseUp += PopupNotifierForm_MouseUp;
             Paint += PopupNotifierForm_Paint;
+
         }
 
+        public void SetData()
+        {
+            lblTitle.Text = Parent.TitleText;
+            lblTitle.Font = Parent.TitleFont;
+            lblTitle.RightToLeft = Parent.IsRightToLeft ? RightToLeft.Yes : RightToLeft.Inherit;
+            lblTitle.ForeColor = Parent.TitleColor;
+            lblTitle.Padding = Parent.TitlePadding;
+            Image.BackgroundImage = Parent.Image;
+
+            lblContent.Text = Parent.ContentText;
+            lblContent.Font = Parent.ContentFont;
+            lblContent.RightToLeft = Parent.IsRightToLeft ? RightToLeft.Yes : RightToLeft.Inherit;
+            lblContent.ForeColor = mouseOnLink ? Parent.ContentHoverColor : Parent.ContentColor;
+            lblContent.Padding = Parent.ContentPadding;
+
+            Cursor = mouseOnLink ? Cursors.Hand : Cursors.Default;
+
+        }
         /// <summary>
         /// The form is shown/hidden.
         /// </summary>
@@ -85,15 +109,82 @@ namespace NotificationWindow
         /// </summary>
         private void InitializeComponent()
         {
-            SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PopupNotifierForm));
+            this.lblContent = new System.Windows.Forms.Label();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.Image = new System.Windows.Forms.PictureBox();
+            this.lblTitle = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Image)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // lblContent
+            // 
+            this.lblContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblContent.Location = new System.Drawing.Point(0, 20);
+            this.lblContent.Name = "lblContent";
+            this.lblContent.Size = new System.Drawing.Size(298, 46);
+            this.lblContent.TabIndex = 0;
+            this.lblContent.Text = "Content";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.IsSplitterFixed = true;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.Image);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Panel2.Controls.Add(this.lblContent);
+            this.splitContainer1.Panel2.Controls.Add(this.lblTitle);
+            this.splitContainer1.Size = new System.Drawing.Size(392, 66);
+            this.splitContainer1.SplitterDistance = 90;
+            this.splitContainer1.TabIndex = 1;
+            // 
+            // Image
+            // 
+            this.Image.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Image.BackgroundImage")));
+            this.Image.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Image.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Image.Location = new System.Drawing.Point(0, 0);
+            this.Image.Name = "Image";
+            this.Image.Size = new System.Drawing.Size(90, 66);
+            this.Image.TabIndex = 1;
+            this.Image.TabStop = false;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(298, 20);
+            this.lblTitle.TabIndex = 1;
+            this.lblTitle.Text = "Title";
             // 
             // PopupNotifierForm
             // 
-            ClientSize = new Size(392, 66);
-            FormBorderStyle = FormBorderStyle.None;
-            Name = "PopupNotifierForm";
-            StartPosition = FormStartPosition.Manual;
-            ResumeLayout(false);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(392, 66);
+            this.Controls.Add(this.splitContainer1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Name = "PopupNotifierForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Image)).EndInit();
+            this.ResumeLayout(false);
 
         }
 
@@ -333,41 +424,47 @@ namespace NotificationWindow
             }
 
 
-            if (Parent.IsRightToLeft)
-            {
-                heightOfTitle = (int)e.Graphics.MeasureString("A", Parent.TitleFont).Height;
+            //if (Parent.IsRightToLeft)
+            //{
+            //    heightOfTitle = (int)e.Graphics.MeasureString("A", Parent.TitleFont).Height;
 
-                // the value 30 is because of x close icon
-                int titleX2 = Width - 30;// Parent.TitlePadding.Right;
+            //    // the value 30 is because of x close icon
+            //    int titleX2 = Width - 30;// Parent.TitlePadding.Right;
 
-                // draw title right to left
-                StringFormat headerFormat = new StringFormat(StringFormatFlags.DirectionRightToLeft);
-                e.Graphics.DrawString(Parent.TitleText, Parent.TitleFont, brushTitle, titleX2, Parent.HeaderHeight + Parent.TitlePadding.Top, headerFormat);
+            //    // draw title right to left
+            //    StringFormat headerFormat = new StringFormat(StringFormatFlags.DirectionRightToLeft);
+            //    e.Graphics.DrawString(Parent.TitleText, Parent.TitleFont, brushTitle, titleX2, Parent.HeaderHeight + Parent.TitlePadding.Top, headerFormat);
 
-                // draw content text, optionally with a bold part
-                Cursor = mouseOnLink ? Cursors.Hand : Cursors.Default;
-                Brush brushText = mouseOnLink ? brushLinkHover : brushContent;
+            //    // draw content text, optionally with a bold part
+            //    Cursor = mouseOnLink ? Cursors.Hand : Cursors.Default;
+            //    Brush brushText = mouseOnLink ? brushLinkHover : brushContent;
 
-                // draw content right to left
-                StringFormat contentFormat = new StringFormat(StringFormatFlags.DirectionRightToLeft);
-                e.Graphics.DrawString(Parent.ContentText, Parent.ContentFont, brushText, RectContentText, contentFormat);
-            }
-            else
-            {
-                // calculate height of title
-                heightOfTitle = (int)e.Graphics.MeasureString("A", Parent.TitleFont).Height;
-                int titleX = Parent.TitlePadding.Left;
-                if (Parent.Image != null)
-                {
-                    titleX += Parent.ImagePadding.Left + Parent.ImageSize.Width + Parent.ImagePadding.Right;
-                }
+            //    // draw content right to left
+            //    StringFormat contentFormat = new StringFormat(StringFormatFlags.DirectionRightToLeft);
+            //    e.Graphics.DrawString(Parent.ContentText, Parent.ContentFont, brushText, RectContentText, contentFormat);
+            //    //label1.Text = Parent.ContentText;
+            //    //label1.Font = Parent.ContentFont;
+            //    //label1.RightToLeft = RightToLeft.Yes;
+            //}
+            //else
+            //{
+            //    // calculate height of title
+            //    heightOfTitle = (int)e.Graphics.MeasureString("A", Parent.TitleFont).Height;
+            //    int titleX = Parent.TitlePadding.Left;
+            //    if (Parent.Image != null)
+            //    {
+            //        titleX += Parent.ImagePadding.Left + Parent.ImageSize.Width + Parent.ImagePadding.Right;
+            //    }
 
-                e.Graphics.DrawString(Parent.TitleText, Parent.TitleFont, brushTitle, titleX, Parent.HeaderHeight + Parent.TitlePadding.Top);
-                // draw content text, optionally with a bold part
-                Cursor = mouseOnLink ? Cursors.Hand : Cursors.Default;
-                Brush brushText = mouseOnLink ? brushLinkHover : brushContent;
-                e.Graphics.DrawString(Parent.ContentText, Parent.ContentFont, brushText, RectContentText);
-            }
+            //    e.Graphics.DrawString(Parent.TitleText, Parent.TitleFont, brushTitle, titleX, Parent.HeaderHeight + Parent.TitlePadding.Top);
+            //    // draw content text, optionally with a bold part
+            //    Cursor = mouseOnLink ? Cursors.Hand : Cursors.Default;
+            //    Brush brushText = mouseOnLink ? brushLinkHover : brushContent;
+            //    e.Graphics.DrawString(Parent.ContentText, Parent.ContentFont, brushText, RectContentText);
+            //    //label1.Text = Parent.ContentText;
+            //    //label1.Font = Parent.ContentFont;
+            //    //label1.RightToLeft = RightToLeft.No;
+            //}
         }
 
         /// <summary>
