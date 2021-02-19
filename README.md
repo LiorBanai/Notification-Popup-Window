@@ -35,6 +35,9 @@ This project is based on a [Notification Window](http://www.codeproject.com/Arti
 - (new) Supports multiple popups at the same time.
 - (new) Supports Not showing popup when other program is running in full screen mode
 - (new) Add sound notification.
+- (new) Support Auto Size:
+![Screenshot](Assets/AutoSize.jpg)
+
 
 
 ### How to use it
