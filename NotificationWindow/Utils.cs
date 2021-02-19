@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace NotificationWindow
@@ -82,5 +83,19 @@ namespace NotificationWindow
             return ((idleTime > 0) ? (idleTime / 1000) : 0);
         }
         public static TimeSpan IdleTime() => TimeSpan.FromSeconds(GetLastInputTime());
+
+        public static SizeF MeasureString(string s, Font font)
+        {
+            SizeF result;
+            using (var image = new Bitmap(1, 1))
+            {
+                using (var g = Graphics.FromImage(image))
+                {
+                    result = g.MeasureString(s, font);
+                }
+            }
+
+            return result;
+        }
     }
 }

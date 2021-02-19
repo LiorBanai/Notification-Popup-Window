@@ -39,6 +39,7 @@ namespace DemoApp
             popupNotifier1.ContentColor = lblTextColor.BackColor;
             popupNotifier1.TitleColor = lblColorValue.BackColor;
             popupNotifier1.PlaySystemSoundOnPopup = chkbSound.Checked;
+            popupNotifier1.AutoContentHeight = chkbAutoHeight.Checked;
             if (rbAsterisk.Checked)
             {
                 popupNotifier1.SystemSoundType = SystemSoundType.Asterisk;
@@ -114,7 +115,7 @@ namespace DemoApp
                 popupNotifier2.ContentColor = lblTextColor.BackColor;
                 popupNotifier2.TitleColor = lblColorValue.BackColor;
                 popupNotifier2.PlaySystemSoundOnPopup = chkbSound.Checked;
-
+                popupNotifier2.AutoContentHeight = chkbAutoHeight.Checked;
                 if (rbExclamation.Checked)
                 {
                     popupNotifier2.SystemSoundType = SystemSoundType.Exclamation;

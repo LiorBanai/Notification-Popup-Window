@@ -159,3 +159,4 @@ $RECYCLE.BIN/
 nuget.exe
 *.nupkg
 /.vs
+/Visual Studio 2019/Visualizers/attribcache140.bin

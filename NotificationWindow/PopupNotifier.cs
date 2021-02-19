@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using NotificationWindow.DataTypes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -8,8 +10,6 @@ using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Microsoft.Win32;
-using NotificationWindow.DataTypes;
 using Timer = System.Windows.Forms.Timer;
 
 namespace NotificationWindow
@@ -101,7 +101,9 @@ namespace NotificationWindow
         [Category("Title"), DefaultValue(typeof(Color), "Gray")]
         [Description("Color of the title text.")]
         public Color TitleColor { get; set; }
-
+        [Category("Content"), DefaultValue(false)]
+        [Description("Auto size of content.")]
+        public bool AutoContentHeight { get; set; }
         [Category("Content"), DefaultValue(typeof(Color), "ControlText")]
         [Description("Color of the content text.")]
         public Color ContentColor { get; set; }
@@ -307,7 +309,7 @@ namespace NotificationWindow
         [Category("Behavior"), DefaultValue(10)]
         [Description("Type of system sound to use")]
         public SystemSoundType SystemSoundType { get; set; }
-       
+
         [Category("Behavior"), DefaultValue("")]
         [Description("Custom system sound to use. File ath to sound file")]
         public string SystemSoundFilePath { get; set; }
@@ -318,7 +320,7 @@ namespace NotificationWindow
         /// </summary>
         public PopupNotifier()
         {
-               // set default values
+            // set default values
             HeaderColor = SystemColors.ControlDark;
             BodyColor = SystemColors.Control;
             TitleColor = Color.Gray;
@@ -436,6 +438,13 @@ namespace NotificationWindow
                     }
 
                     frmPopup.Size = Size;
+                    if (AutoContentHeight)
+                    {
+                        var size = Utils.MeasureString(ContentText, ContentFont);
+                        var lines = (int)Math.Ceiling(size.Width / frmPopup.Size.Width);
+                        frmPopup.Size = Size = new Size(frmPopup.Size.Width, (int)Math.Ceiling(size.Height * lines) + HeaderHeight + 30);
+                    }
+
                     SetNextPosition();
                     frmPopup.Closed += FrmPopup_Closed;
                     opacityStart = 0;
@@ -511,7 +520,7 @@ namespace NotificationWindow
                                     object o = key?.GetValue(null); // pass null to get (Default)
                                     if (o != null)
                                     {
-                                        using (SoundPlayer theSound = new SoundPlayer((string) o))
+                                        using (SoundPlayer theSound = new SoundPlayer((string)o))
                                         {
                                             theSound.Play();
                                         }
@@ -543,7 +552,8 @@ namespace NotificationWindow
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-            }}
+            }
+        }
 
         private void FrmPopup_Closed(object sender, EventArgs e)
         {

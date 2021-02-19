@@ -78,6 +78,7 @@
             this.rbBeep = new System.Windows.Forms.RadioButton();
             this.rbAsterisk = new System.Windows.Forms.RadioButton();
             this.chkbSound = new System.Windows.Forms.CheckBox();
+            this.chkbAutoHeight = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip1.SuspendLayout();
             this.gbSound.SuspendLayout();
             this.SuspendLayout();
@@ -95,7 +96,7 @@
             // 
             // btnShow
             // 
-            this.btnShow.Location = new System.Drawing.Point(12, 301);
+            this.btnShow.Location = new System.Drawing.Point(12, 344);
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(75, 23);
             this.btnShow.TabIndex = 1;
@@ -340,7 +341,7 @@
             // btnMore
             // 
             this.btnMore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMore.Location = new System.Drawing.Point(911, 304);
+            this.btnMore.Location = new System.Drawing.Point(911, 343);
             this.btnMore.Name = "btnMore";
             this.btnMore.Size = new System.Drawing.Size(153, 23);
             this.btnMore.TabIndex = 24;
@@ -398,7 +399,7 @@
             // 
             // txtBorder
             // 
-            this.txtBorder.Location = new System.Drawing.Point(207, 232);
+            this.txtBorder.Location = new System.Drawing.Point(207, 275);
             this.txtBorder.Name = "txtBorder";
             this.txtBorder.Size = new System.Drawing.Size(100, 24);
             this.txtBorder.TabIndex = 29;
@@ -407,7 +408,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(13, 236);
+            this.label9.Location = new System.Drawing.Point(13, 279);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(188, 17);
             this.label9.TabIndex = 30;
@@ -415,7 +416,7 @@
             // 
             // txtHeaderHeight
             // 
-            this.txtHeaderHeight.Location = new System.Drawing.Point(207, 260);
+            this.txtHeaderHeight.Location = new System.Drawing.Point(207, 303);
             this.txtHeaderHeight.Name = "txtHeaderHeight";
             this.txtHeaderHeight.Size = new System.Drawing.Size(100, 24);
             this.txtHeaderHeight.TabIndex = 31;
@@ -424,7 +425,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(14, 264);
+            this.label11.Location = new System.Drawing.Point(14, 307);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(94, 17);
             this.label11.TabIndex = 32;
@@ -548,11 +549,24 @@
             this.chkbSound.Text = "Enable Sounds";
             this.chkbSound.UseVisualStyleBackColor = true;
             // 
+            // chkbAutoHeight
+            // 
+            this.chkbAutoHeight.AutoSize = true;
+            this.chkbAutoHeight.Checked = true;
+            this.chkbAutoHeight.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkbAutoHeight.Location = new System.Drawing.Point(15, 228);
+            this.chkbAutoHeight.Name = "chkbAutoHeight";
+            this.chkbAutoHeight.Size = new System.Drawing.Size(136, 21);
+            this.chkbAutoHeight.TabIndex = 34;
+            this.chkbAutoHeight.Text = "Auto size (height)";
+            this.chkbAutoHeight.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1078, 336);
+            this.ClientSize = new System.Drawing.Size(1078, 375);
+            this.Controls.Add(this.chkbAutoHeight);
             this.Controls.Add(this.gbSound);
             this.Controls.Add(this.chkbSound);
             this.Controls.Add(this.txtHeaderHeight);
@@ -655,6 +669,7 @@
         private System.Windows.Forms.RadioButton rbCustom;
         private System.Windows.Forms.TextBox txtSoundPath;
         private System.Windows.Forms.Button btnOpemSoundFile;
+        private System.Windows.Forms.CheckBox chkbAutoHeight;
     }
 }
 

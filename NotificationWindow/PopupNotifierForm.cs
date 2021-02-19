@@ -367,6 +367,7 @@ namespace NotificationWindow
                 Cursor = mouseOnLink ? Cursors.Hand : Cursors.Default;
                 Brush brushText = mouseOnLink ? brushLinkHover : brushContent;
                 e.Graphics.DrawString(Parent.ContentText, Parent.ContentFont, brushText, RectContentText);
+
             }
         }
 
