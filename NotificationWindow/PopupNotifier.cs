@@ -22,7 +22,7 @@ namespace NotificationWindow
     [DefaultEvent("Click")]
     public class PopupNotifier : Component
     {
-        internal static List<(int index, int topPosition, PopupNotifier PopupNotifier)> positions = new List<(int index, int topPosition, PopupNotifier PopupNotifier)>();
+        internal static List<PopUpPosition> positions = new List<PopUpPosition>();
         private int currentIndex;
         #region Windows API
         private const int SW_SHOWNOACTIVATE = 4;
@@ -395,11 +395,11 @@ namespace NotificationWindow
                     posStop = posStart = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
                 }
 
-                positions.Insert(currentIndex, (currentIndex, posStart - BorderSize, this));
+                positions.Insert(currentIndex, new PopUpPosition(currentIndex, posStart - BorderSize, this));
                 Debug.WriteLine("insert: " + currentIndex + " (" + string.Join(",", positions.Select(i => i.index)) + ")");
                 for (var index = 0; index < positions.Count; index++)
                 {
-                    (int index, int topPosition, PopupNotifier PopupNotifier) data = positions[index];
+                    PopUpPosition data = positions[index];
                     if (data.index > currentIndex)
                     {
                         var pos = positions[index - 1].topPosition - frmPopup.Height;
@@ -441,7 +441,7 @@ namespace NotificationWindow
                     if (AutoContentHeight)
                     {
                         var size = Utils.MeasureString(ContentText, ContentFont);
-                        var lines = (int)Math.Ceiling(size.Width / frmPopup.Size.Width);
+                        var lines = (int)Math.Ceiling(size.Width / frmPopup.Size.Width) + 1;
                         frmPopup.Size = Size = new Size(frmPopup.Size.Width, (int)Math.Ceiling(size.Height * lines) + HeaderHeight + 30);
                     }
 

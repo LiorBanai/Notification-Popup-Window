@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<TargetFrameworks>netcoreapp3.1;net472;net471</TargetFrameworks>
+		<TargetFrameworks>netcoreapp3.1;net472;net471;net461</TargetFrameworks>
 		<UseWindowsForms>true</UseWindowsForms>
 		<AssemblyName>NotificationWindow</AssemblyName>
 		<RootNamespace>NotificationWindow</RootNamespace>
@@ -12,7 +12,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageId>LiorBanai.NotificationWindow</PackageId>
 		<Authors>LiorBanai</Authors>
-		<Version>1.3.0</Version>
+		<Version>1.4.0</Version>
 		<Company>LiorBanai.NotificationWindow</Company>
 		<Product>LiorBanai.NotificationWindow</Product>
 		<Copyright>Lior Banai</Copyright>
