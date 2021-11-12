@@ -1,7 +1,7 @@
-# Notification Popup Window
+# Notification Popup Window [![.NET Core Desktop](https://github.com/LiorBanai/Notification-Popup-Window/actions/workflows/dotnet-core-desktop.yml/badge.svg)](https://github.com/LiorBanai/Notification-Popup-Window/actions/workflows/dotnet-core-desktop.yml) ![CodeQL](https://github.com/LiorBanai/Notification-Popup-Window/workflows/CodeQL/badge.svg)  
 ### A notification window that appears on the lower right part of the screen for .NET
 
-   [![Nuget](https://img.shields.io/nuget/dt/LiorBanai.NotificationWindow)](https://www.nuget.org/packages/LiorBanai.NotificationWindow/) ![CodeQL](https://github.com/LiorBanai/Notification-Popup-Window/workflows/CodeQL/badge.svg)  
+   [![Nuget](https://img.shields.io/nuget/dt/LiorBanai.NotificationWindow)](https://www.nuget.org/packages/LiorBanai.NotificationWindow/) 
 <a href="https://github.com/LiorBanai/Notification-Popup-Window/issues">
     <img src="https://img.shields.io/github/issues/LiorBanai/Notification-Popup-Window"  alt="Issues"/>
 </a>
