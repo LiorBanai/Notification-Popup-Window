@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFrameworks>netcoreapp3.1;net472;net471</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows;net5.0-windows;net48;net461;net471;net472;netcoreapp3.1</TargetFrameworks>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
 		<UseWindowsForms>true</UseWindowsForms>
 		<AssemblyTitle>DemoApp</AssemblyTitle>
