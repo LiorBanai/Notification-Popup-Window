@@ -37,7 +37,7 @@
 		</PackageReference>
 		<PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
 	</ItemGroup>
-	<ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net48' or '$(TargetFramework)' == 'net472' or '$(TargetFramework)' == 'net471' ">
 		<Reference Include="System.Data.DataSetExtensions" />
 		<Reference Include="Microsoft.CSharp" />
 		<Reference Include="System.Deployment" />

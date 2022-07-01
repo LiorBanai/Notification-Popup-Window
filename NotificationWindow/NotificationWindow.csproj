@@ -26,7 +26,7 @@
 		<Description />
 	</PropertyGroup>
 	<ItemGroup>
-		<None Include="..\icon.png">
+		<None Include="..\notificationWindow.png">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
