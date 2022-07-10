@@ -16,7 +16,7 @@
 		<Company>LiorBanai.NotificationWindow</Company>
 		<Product>LiorBanai.NotificationWindow</Product>
 		<Copyright>Lior Banai</Copyright>
-		<PackageIcon>icon.png</PackageIcon>
+		<PackageIcon>notificationWindow.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/LiorBanai/Notification-Popup-Window</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/LiorBanai/Notification-Popup-Window</RepositoryUrl>
