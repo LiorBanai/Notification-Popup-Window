@@ -28,6 +28,13 @@ namespace NotificationWindow
         private const int SW_SHOWNOACTIVATE = 4;
         private const int HWND_TOPMOST = -1;
         private const uint SWP_NOACTIVATE = 0x0010;
+        private readonly Form ownerWindow;
+        private int Bottom => PopupRelativeToScreen
+                    ? Screen.PrimaryScreen.WorkingArea.Bottom
+                    : ownerWindow != null ? ownerWindow.Bottom : Screen.PrimaryScreen.WorkingArea.Bottom;
+        private int Right => PopupRelativeToScreen
+                    ? Screen.PrimaryScreen.WorkingArea.Right
+                    : ownerWindow != null ? ownerWindow.Right : Screen.PrimaryScreen.WorkingArea.Right;
 
         [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
         static extern bool SetWindowPos(
@@ -89,6 +96,10 @@ namespace NotificationWindow
         private Stopwatch sw;
 
         #region Properties
+
+        [Category("Behavior"), DefaultValue(true)]
+        [Description("Popups relative to Screen or Owner Form")]
+        public bool PopupRelativeToScreen { get; set; }
 
         [Category("Header"), DefaultValue(typeof(Color), "ControlDark")]
         [Description("Color of the window header.")]
@@ -318,8 +329,10 @@ namespace NotificationWindow
         /// <summary>
         /// Create a new instance of the popup component.
         /// </summary>
-        public PopupNotifier()
+        public PopupNotifier(Form ownerWindow = null)
         {
+            this.ownerWindow = ownerWindow;
+
             // set default values
             HeaderColor = SystemColors.ControlDark;
             BodyColor = SystemColors.Control;
@@ -344,6 +357,7 @@ namespace NotificationWindow
             AnimationInterval = 10;
             AnimationDuration = 1000;
             Size = new Size(400, 100);
+            PopupRelativeToScreen = true;
 
             CreateForm();
             tmrAnimation = new Timer();
@@ -392,7 +406,7 @@ namespace NotificationWindow
                 }
                 if (minimum == 0)
                 {
-                    posStop = posStart = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
+                    posStop = posStart = Bottom - frmPopup.Height;
                 }
 
                 positions.Insert(currentIndex, new PopUpPosition(currentIndex, posStart - BorderSize, this));
@@ -451,7 +465,7 @@ namespace NotificationWindow
                     opacityStop = 1;
 
                     frmPopup.Opacity = opacityStart;
-                    frmPopup.Location = new Point(Screen.PrimaryScreen.WorkingArea.Right - frmPopup.Size.Width - 1, posStart);
+                    frmPopup.Location = new Point(Right - frmPopup.Size.Width - 1, posStart);
                     ShowInactiveTopmost(frmPopup);
                     isAppearing = true;
 
@@ -469,12 +483,12 @@ namespace NotificationWindow
                         //if (Scroll)
                         //{
                         //    posStart = frmPopup.Top;
-                        //    posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
+                        //    posStop = Bottom - currentPosition * frmPopup.Height;
                         //}
                         //else
                         //{
-                        //    posStart = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
-                        //    posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
+                        //    posStart = Bottom - currentPosition * frmPopup.Height;
+                        //    posStop = Bottom - currentPosition * frmPopup.Height;
                         //}
                         opacityStart = frmPopup.Opacity;
                         opacityStop = 1;
@@ -689,13 +703,13 @@ namespace NotificationWindow
                 {
                     if (Scroll)
                     {
-                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
-                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom;
+                        posStart = Bottom - frmPopup.Height;
+                        posStop = Bottom;
                     }
                     else
                     {
-                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
-                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
+                        posStart = Bottom - frmPopup.Height;
+                        posStop = Bottom - frmPopup.Height;
                     }
                     opacityStart = 1;
                     opacityStop = 0;
