@@ -12,7 +12,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageId>LiorBanai.NotificationWindow</PackageId>
 		<Authors>LiorBanai</Authors>
-		<Version>1.6.0</Version>
+		<Version>1.7.0</Version>
 		<Company>LiorBanai.NotificationWindow</Company>
 		<Product>LiorBanai.NotificationWindow</Product>
 		<Copyright>Lior Banai</Copyright>
