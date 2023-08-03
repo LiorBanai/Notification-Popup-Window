@@ -5,8 +5,10 @@
  */
 
 using DemoApp.Properties;
+
 using NotificationWindow;
 using NotificationWindow.DataTypes;
+
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -81,7 +83,7 @@ namespace DemoApp
         private void btnMore_Click(object sender, EventArgs e)
         {
             int h = new Random().Next(100, 200);
-            using (var popupNotifier2 = new PopupNotifier())
+            using (var popupNotifier2 = new PopupNotifier(this))
             {
                 popupNotifier2.BodyColor = Color.FromArgb(128, 128, 255);
                 popupNotifier2.ContentFont = new Font("Tahoma", 8F);
@@ -116,6 +118,7 @@ namespace DemoApp
                 popupNotifier2.TitleColor = lblColorValue.BackColor;
                 popupNotifier2.PlaySystemSoundOnPopup = chkbSound.Checked;
                 popupNotifier2.AutoContentHeight = chkbAutoHeight.Checked;
+                popupNotifier2.PopupRelativeToScreen = chkbPopupRelative.Checked;
                 if (rbExclamation.Checked)
                 {
                     popupNotifier2.SystemSoundType = SystemSoundType.Exclamation;
@@ -137,6 +140,24 @@ namespace DemoApp
                     popupNotifier2.SystemSoundType = SystemSoundType.Custom;
                 }
                 popupNotifier2.SystemSoundFilePath = txtSoundPath.Text;
+
+                if (rbTopLeft.Checked)
+                {
+                    popupNotifier2.PopupLocation = PopupLocation.TopLeft;
+                }
+                if (rbTopRight.Checked)
+                {
+                    popupNotifier2.PopupLocation = PopupLocation.TopRight;
+                }
+                if (rbBottomRight.Checked)
+                {
+                    popupNotifier2.PopupLocation = PopupLocation.BottomRight;
+                }
+                if (rbBottomLeft.Checked)
+                {
+                    popupNotifier2.PopupLocation = PopupLocation.BottomLeft;
+                }
+
                 popupNotifier2.Popup();
             }
         }
