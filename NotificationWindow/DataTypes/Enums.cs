@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NotificationWindow.DataTypes
+﻿namespace NotificationWindow.DataTypes
 {
     public enum SystemSoundType
     {
@@ -12,7 +8,14 @@ namespace NotificationWindow.DataTypes
         Hand,
         Question,
         Notification,
-        Custom
+        Custom,
+    }
 
+    public enum PopupLocation
+    {
+        TopLeft,
+        TopRight,
+        BottomRight,
+        BottomLeft,
     }
 }

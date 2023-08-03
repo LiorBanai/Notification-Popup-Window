@@ -28,6 +28,19 @@ namespace NotificationWindow
         private const int SW_SHOWNOACTIVATE = 4;
         private const int HWND_TOPMOST = -1;
         private const uint SWP_NOACTIVATE = 0x0010;
+        private readonly Form ownerWindow;
+        private int Left => PopupRelativeToScreen
+                    ? Screen.PrimaryScreen.WorkingArea.Left
+                    : ownerWindow != null ? ownerWindow.Left : Screen.PrimaryScreen.WorkingArea.Left;
+        private int Top => PopupRelativeToScreen
+                    ? Screen.PrimaryScreen.WorkingArea.Top
+                    : ownerWindow != null ? ownerWindow.Top : Screen.PrimaryScreen.WorkingArea.Top;
+        private int Right => PopupRelativeToScreen
+                    ? Screen.PrimaryScreen.WorkingArea.Right
+                    : ownerWindow != null ? ownerWindow.Right : Screen.PrimaryScreen.WorkingArea.Right;
+        private int Bottom => PopupRelativeToScreen
+                    ? Screen.PrimaryScreen.WorkingArea.Bottom
+                    : ownerWindow != null ? ownerWindow.Bottom : Screen.PrimaryScreen.WorkingArea.Bottom;
 
         [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
         static extern bool SetWindowPos(
@@ -89,6 +102,14 @@ namespace NotificationWindow
         private Stopwatch sw;
 
         #region Properties
+
+        [Category("Behavior"), DefaultValue( PopupLocation.BottomRight )]
+        [Description("Popup corner location")]
+        public PopupLocation PopupLocation { get; set; }
+
+        [Category("Behavior"), DefaultValue(true)]
+        [Description("Popups relative to Screen or Owner Form, dont forget to add the Owner Form at new()")]
+        public bool PopupRelativeToScreen { get; set; }
 
         [Category("Header"), DefaultValue(typeof(Color), "ControlDark")]
         [Description("Color of the window header.")]
@@ -318,8 +339,10 @@ namespace NotificationWindow
         /// <summary>
         /// Create a new instance of the popup component.
         /// </summary>
-        public PopupNotifier()
+        public PopupNotifier(Form ownerWindow = null)
         {
+            this.ownerWindow = ownerWindow;
+
             // set default values
             HeaderColor = SystemColors.ControlDark;
             BodyColor = SystemColors.Control;
@@ -344,6 +367,8 @@ namespace NotificationWindow
             AnimationInterval = 10;
             AnimationDuration = 1000;
             Size = new Size(400, 100);
+            PopupRelativeToScreen = true;
+            PopupLocation = PopupLocation.BottomRight;
 
             CreateForm();
             tmrAnimation = new Timer();
@@ -388,21 +413,64 @@ namespace NotificationWindow
                 currentIndex = minimum;
                 if (minimum > 0)
                 {
-                    posStop = posStart = positions[currentIndex - 1].topPosition - frmPopup.Height;
+                    switch (PopupLocation)
+                    {
+                        case PopupLocation.TopLeft:
+                        case PopupLocation.TopRight:
+                            posStop = posStart = positions[currentIndex - 1].topPosition;
+                            break;
+                        case PopupLocation.BottomRight:
+                        case PopupLocation.BottomLeft:
+                            posStop = posStart = positions[currentIndex - 1].topPosition - frmPopup.Height;
+                            break;
+                    }
                 }
                 if (minimum == 0)
                 {
-                    posStop = posStart = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
+                    switch (PopupLocation)
+                    {
+                        case PopupLocation.TopLeft:
+                        case PopupLocation.TopRight:
+                            posStop = posStart = Top;
+                            break;
+                        case PopupLocation.BottomRight:
+                        case PopupLocation.BottomLeft:
+                            posStop = posStart = Bottom - frmPopup.Height;
+                            break;
+                    }
                 }
 
-                positions.Insert(currentIndex, new PopUpPosition(currentIndex, posStart - BorderSize, this));
+                switch (PopupLocation)
+                {
+                    case PopupLocation.TopLeft:
+                    case PopupLocation.TopRight:
+                        positions.Insert(currentIndex, new PopUpPosition(currentIndex, posStart + frmPopup.Height + BorderSize, this));
+                        break;
+                    case PopupLocation.BottomRight:
+                    case PopupLocation.BottomLeft:
+                        positions.Insert(currentIndex, new PopUpPosition(currentIndex, posStart - BorderSize, this));
+                        break;
+                }
                 Debug.WriteLine("insert: " + currentIndex + " (" + string.Join(",", positions.Select(i => i.index)) + ")");
                 for (var index = 0; index < positions.Count; index++)
                 {
                     PopUpPosition data = positions[index];
                     if (data.index > currentIndex)
                     {
-                        var pos = positions[index - 1].topPosition - frmPopup.Height;
+                        int pos = 0;
+
+                        switch (PopupLocation)
+                        {
+                            case PopupLocation.TopLeft:
+                            case PopupLocation.TopRight:
+                                pos = positions[index - 1].topPosition;
+                                break;
+                            case PopupLocation.BottomRight:
+                            case PopupLocation.BottomLeft:
+                                pos = positions[index - 1].topPosition - frmPopup.Height;
+                                break;
+                        }
+                        
                         data.PopupNotifier.posStart = pos;
                         data.PopupNotifier.RePosition();
                     }
@@ -451,7 +519,23 @@ namespace NotificationWindow
                     opacityStop = 1;
 
                     frmPopup.Opacity = opacityStart;
-                    frmPopup.Location = new Point(Screen.PrimaryScreen.WorkingArea.Right - frmPopup.Size.Width - 1, posStart);
+
+                    switch (PopupLocation)
+                    {
+                        case PopupLocation.TopLeft:
+                            frmPopup.Location = new Point(Left + 1, posStart);
+                            break;
+                        case PopupLocation.TopRight:
+                            frmPopup.Location = new Point(Right - frmPopup.Size.Width - 1, posStart);
+                            break;
+                        case PopupLocation.BottomRight:
+                            frmPopup.Location = new Point(Right - frmPopup.Size.Width - 1, posStart);
+                            break;
+                        case PopupLocation.BottomLeft:
+                            frmPopup.Location = new Point(Left + 1, posStart);
+                            break;
+                    }
+
                     ShowInactiveTopmost(frmPopup);
                     isAppearing = true;
 
@@ -469,12 +553,12 @@ namespace NotificationWindow
                         //if (Scroll)
                         //{
                         //    posStart = frmPopup.Top;
-                        //    posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
+                        //    posStop = Bottom - currentPosition * frmPopup.Height;
                         //}
                         //else
                         //{
-                        //    posStart = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
-                        //    posStop = Screen.PrimaryScreen.WorkingArea.Bottom - currentPosition * frmPopup.Height;
+                        //    posStart = Bottom - currentPosition * frmPopup.Height;
+                        //    posStop = Bottom - currentPosition * frmPopup.Height;
                         //}
                         opacityStart = frmPopup.Opacity;
                         opacityStop = 1;
@@ -689,13 +773,35 @@ namespace NotificationWindow
                 {
                     if (Scroll)
                     {
-                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
-                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom;
+                        switch (PopupLocation)
+                        {
+                            case PopupLocation.TopLeft:
+                            case PopupLocation.TopRight:
+                                posStart = Top;
+                                posStop = Top - frmPopup.Height;
+                                break;
+                            case PopupLocation.BottomRight:
+                            case PopupLocation.BottomLeft:
+                                posStart = Bottom - frmPopup.Height;
+                                posStop = Bottom;
+                                break;
+                        }
                     }
                     else
                     {
-                        posStart = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
-                        posStop = Screen.PrimaryScreen.WorkingArea.Bottom - frmPopup.Height;
+                        switch (PopupLocation)
+                        {
+                            case PopupLocation.TopLeft:
+                            case PopupLocation.TopRight:
+                                posStart = Top;
+                                posStop = Top;
+                                break;
+                            case PopupLocation.BottomRight:
+                            case PopupLocation.BottomLeft:
+                                posStart = Bottom - frmPopup.Height;
+                                posStop = Bottom - frmPopup.Height;
+                                break;
+                        }
                     }
                     opacityStart = 1;
                     opacityStop = 0;
