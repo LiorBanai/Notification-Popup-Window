@@ -43,19 +43,21 @@ namespace NotificationWindow
                     : ownerWindow != null ? ownerWindow.Bottom : Screen.PrimaryScreen.WorkingArea.Bottom;
 
         [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
-        static extern bool SetWindowPos(
+        public static extern bool SetWindowPos(
          int hWnd,             // Window handle
          int hWndInsertAfter,  // Placement-order handle
+#pragma warning disable SA1313 // Parameter names should begin with lower-case letter
          int X,                // Horizontal position
          int Y,                // Vertical position
+#pragma warning restore SA1313 // Parameter names should begin with lower-case letter
          int cx,               // Width
          int cy,               // Height
          uint uFlags);         // Window positioning flags
 
         [DllImport("user32.dll")]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-        static void ShowInactiveTopmost(Form frm)
+        public static void ShowInactiveTopmost(Form frm)
         {
             ShowWindow(frm.Handle, SW_SHOWNOACTIVATE);
             SetWindowPos(frm.Handle.ToInt32(), HWND_TOPMOST,
@@ -84,14 +86,14 @@ namespace NotificationWindow
         /// </summary>
         public event EventHandler Disappear;
 
-        private bool disposed = false;
+        private bool disposed;
         private PopupNotifierForm frmPopup;
         private Timer tmrAnimation;
         private Timer tmrWait;
 
         private bool isAppearing = true;
-        private bool markedForDisposed = false;
-        private bool mouseIsOn = false;
+        private bool markedForDisposed;
+        private bool mouseIsOn;
         private int maxPosition;
         private double maxOpacity;
         public int posStart;
@@ -103,37 +105,46 @@ namespace NotificationWindow
 
         #region Properties
 
-        [Category("Behavior"), DefaultValue( PopupLocation.BottomRight )]
+        [Category("Behavior")]
+        [DefaultValue(PopupLocation.BottomRight)]
         [Description("Popup corner location")]
         public PopupLocation PopupLocation { get; set; }
 
-        [Category("Behavior"), DefaultValue(true)]
+        [Category("Behavior")]
+        [DefaultValue(true)]
         [Description("Popups relative to Screen or Owner Form, dont forget to add the Owner Form at new()")]
         public bool PopupRelativeToScreen { get; set; }
 
-        [Category("Header"), DefaultValue(typeof(Color), "ControlDark")]
+        [Category("Header")]
+        [DefaultValue(typeof(Color), "ControlDark")]
         [Description("Color of the window header.")]
         public Color HeaderColor { get; set; }
 
-        [Category("Appearance"), DefaultValue(typeof(Color), "Control")]
+        [Category("Appearance")]
+        [DefaultValue(typeof(Color), "Control")]
         [Description("Color of the window background.")]
         public Color BodyColor { get; set; }
 
-        [Category("Title"), DefaultValue(typeof(Color), "Gray")]
+        [Category("Title")]
+        [DefaultValue(typeof(Color), "Gray")]
         [Description("Color of the title text.")]
         public Color TitleColor { get; set; }
-        [Category("Content"), DefaultValue(false)]
+        [Category("Content")]
+        [DefaultValue(false)]
         [Description("Auto size of content.")]
         public bool AutoContentHeight { get; set; }
-        [Category("Content"), DefaultValue(typeof(Color), "ControlText")]
+        [Category("Content")]
+        [DefaultValue(typeof(Color), "ControlText")]
         [Description("Color of the content text.")]
         public Color ContentColor { get; set; }
 
-        [Category("Appearance"), DefaultValue(typeof(Color), "WindowFrame")]
+        [Category("Appearance")]
+        [DefaultValue(typeof(Color), "WindowFrame")]
         [Description("Color of the window border.")]
         public Color BorderColor { get; set; }
 
-        [Category("Appearance"), DefaultValue(0)]
+        [Category("Appearance")]
+        [DefaultValue(0)]
         [Description("Size of the window border.")]
         public int BorderSize
         {
@@ -150,19 +161,23 @@ namespace NotificationWindow
             }
         }
 
-        [Category("Buttons"), DefaultValue(typeof(Color), "WindowFrame")]
+        [Category("Buttons")]
+        [DefaultValue(typeof(Color), "WindowFrame")]
         [Description("Border color of the close and options buttons when the mouse is over them.")]
         public Color ButtonBorderColor { get; set; }
 
-        [Category("Buttons"), DefaultValue(typeof(Color), "Highlight")]
+        [Category("Buttons")]
+        [DefaultValue(typeof(Color), "Highlight")]
         [Description("Background color of the close and options buttons when the mouse is over them.")]
         public Color ButtonHoverColor { get; set; }
 
-        [Category("Content"), DefaultValue(typeof(Color), "HotTrack")]
+        [Category("Content")]
+        [DefaultValue(typeof(Color), "HotTrack")]
         [Description("Color of the content text when the mouse is hovering over it.")]
         public Color ContentHoverColor { get; set; }
 
-        [Category("Appearance"), DefaultValue(50)]
+        [Category("Appearance")]
+        [DefaultValue(50)]
         [Description("Gradient of window background color.")]
         public int GradientPower { get; set; }
 
@@ -211,15 +226,18 @@ namespace NotificationWindow
         [Description("Icon image to display.")]
         public Image Image { get; set; }
 
-        [Category("Header"), DefaultValue(true)]
+        [Category("Header")]
+        [DefaultValue(true)]
         [Description("Whether to show a 'grip' image within the window header.")]
         public bool ShowGrip { get; set; }
 
-        [Category("Behavior"), DefaultValue(true)]
+        [Category("Behavior")]
+        [DefaultValue(true)]
         [Description("Whether to scroll the window or only fade it.")]
         public bool Scroll { get; set; }
 
-        [Category("Behavior"), DefaultValue(false)]
+        [Category("Behavior")]
+        [DefaultValue(false)]
         [Description("Do not show popup when running a program in full screen.")]
         public bool IgnoreWhenFullScreen { get; set; }
 
@@ -275,7 +293,8 @@ namespace NotificationWindow
             return !ImagePadding.Equals(Padding.Empty);
         }
 
-        [Category("Header"), DefaultValue(9)]
+        [Category("Header")]
+        [DefaultValue(9)]
         [Description("Height of window header.")]
         public int HeaderHeight
         {
@@ -291,11 +310,13 @@ namespace NotificationWindow
             }
         }
 
-        [Category("Buttons"), DefaultValue(true)]
+        [Category("Buttons")]
+        [DefaultValue(true)]
         [Description("Whether to show the close button.")]
         public bool ShowCloseButton { get; set; }
 
-        [Category("Buttons"), DefaultValue(false)]
+        [Category("Buttons")]
+        [DefaultValue(false)]
         [Description("Whether to show the options button.")]
         public bool ShowOptionsButton { get; set; }
 
@@ -303,15 +324,18 @@ namespace NotificationWindow
         [Description("Context menu to open when clicking on the options button.")]
         public ContextMenuStrip OptionsMenu { get; set; }
 
-        [Category("Behavior"), DefaultValue(3000)]
+        [Category("Behavior")]
+        [DefaultValue(3000)]
         [Description("Time in milliseconds the window is displayed.")]
         public int Delay { get; set; }
 
-        [Category("Behavior"), DefaultValue(5000)]
+        [Category("Behavior")]
+        [DefaultValue(5000)]
         [Description("Time in milliseconds needed to make the window appear or disappear.")]
         public int AnimationDuration { get; set; }
 
-        [Category("Behavior"), DefaultValue(10)]
+        [Category("Behavior")]
+        [DefaultValue(10)]
         [Description("Interval in milliseconds used to draw the animation.")]
         public int AnimationInterval { get; set; }
 
@@ -323,15 +347,18 @@ namespace NotificationWindow
         [Description("Show Content Right To Left,نمایش پیغام چپ به راست فعال شود")]
         public bool IsRightToLeft { get; set; }
 
-        [Category("Behavior"), DefaultValue(false)]
+        [Category("Behavior")]
+        [DefaultValue(false)]
         [Description("boolean value indicates to use system sound on popup.")]
         public bool PlaySystemSoundOnPopup { get; set; }
 
-        [Category("Behavior"), DefaultValue(10)]
+        [Category("Behavior")]
+        [DefaultValue(10)]
         [Description("Type of system sound to use")]
         public SystemSoundType SystemSoundType { get; set; }
 
-        [Category("Behavior"), DefaultValue("")]
+        [Category("Behavior")]
+        [DefaultValue("")]
         [Description("Custom system sound to use. File ath to sound file")]
         public string SystemSoundFilePath { get; set; }
         #endregion
@@ -383,7 +410,7 @@ namespace NotificationWindow
             frmPopup = new PopupNotifierForm(this)
             {
                 FormBorderStyle = FormBorderStyle.None,
-                StartPosition = FormStartPosition.Manual
+                StartPosition = FormStartPosition.Manual,
             };
             frmPopup.FormBorderStyle = FormBorderStyle.None;
             frmPopup.MouseEnter += frmPopup_MouseEnter;
@@ -395,18 +422,17 @@ namespace NotificationWindow
             frmPopup.VisibleChanged += frmPopup_VisibleChanged;
         }
 
-
         private void SetNextPosition()
         {
             lock (lockobj)
             {
                 int minimum = 0;
-                positions = positions.OrderBy(i => i.index).ToList();
+                positions = positions.OrderBy(i => i.Index).ToList();
                 foreach (var pos in positions)
                 {
-                    if (pos.index == minimum)
+                    if (pos.Index == minimum)
                     {
-                        minimum = pos.index + 1;
+                        minimum = pos.Index + 1;
                     }
                 }
 
@@ -417,11 +443,11 @@ namespace NotificationWindow
                     {
                         case PopupLocation.TopLeft:
                         case PopupLocation.TopRight:
-                            posStop = posStart = positions[currentIndex - 1].topPosition;
+                            posStop = posStart = positions[currentIndex - 1].TopPosition;
                             break;
                         case PopupLocation.BottomRight:
                         case PopupLocation.BottomLeft:
-                            posStop = posStart = positions[currentIndex - 1].topPosition - frmPopup.Height;
+                            posStop = posStart = positions[currentIndex - 1].TopPosition - frmPopup.Height;
                             break;
                     }
                 }
@@ -451,11 +477,11 @@ namespace NotificationWindow
                         positions.Insert(currentIndex, new PopUpPosition(currentIndex, posStart - BorderSize, this));
                         break;
                 }
-                Debug.WriteLine("insert: " + currentIndex + " (" + string.Join(",", positions.Select(i => i.index)) + ")");
+                Debug.WriteLine("insert: " + currentIndex + " (" + string.Join(",", positions.Select(i => i.Index)) + ")");
                 for (var index = 0; index < positions.Count; index++)
                 {
                     PopUpPosition data = positions[index];
-                    if (data.index > currentIndex)
+                    if (data.Index > currentIndex)
                     {
                         int pos = 0;
 
@@ -463,14 +489,14 @@ namespace NotificationWindow
                         {
                             case PopupLocation.TopLeft:
                             case PopupLocation.TopRight:
-                                pos = positions[index - 1].topPosition;
+                                pos = positions[index - 1].TopPosition;
                                 break;
                             case PopupLocation.BottomRight:
                             case PopupLocation.BottomLeft:
-                                pos = positions[index - 1].topPosition - frmPopup.Height;
+                                pos = positions[index - 1].TopPosition - frmPopup.Height;
                                 break;
                         }
-                        
+
                         data.PopupNotifier.posStart = pos;
                         data.PopupNotifier.RePosition();
                     }
@@ -489,7 +515,6 @@ namespace NotificationWindow
         /// </summary>
         public void Popup()
         {
-
             if (IgnoreWhenFullScreen && Utils.IsForegroundFullScreen())
             {
                 return;
@@ -550,6 +575,7 @@ namespace NotificationWindow
                     if (!isAppearing)
                     {
                         frmPopup.Size = Size;
+                        
                         //if (Scroll)
                         //{
                         //    posStart = frmPopup.Top;
@@ -615,7 +641,6 @@ namespace NotificationWindow
                             {
                                 Console.WriteLine($"unable to play notification sound:{e.Message}");
                             }
-
                         }
                         catch (Exception e)
                         {
@@ -630,7 +655,6 @@ namespace NotificationWindow
                             {
                                 theSound.Play();
                             }
-
                         }
                         break;
                     default:
@@ -645,7 +669,7 @@ namespace NotificationWindow
             lock (lockobj)
             {
                 Debug.WriteLine("remove: " + currentIndex);
-                var item = positions.First(i => i.index == currentIndex);
+                var item = positions.First(i => i.Index == currentIndex);
                 positions.Remove(item);
             }
         }
@@ -678,7 +702,6 @@ namespace NotificationWindow
                 tmrWait.Start();
             }
         }
-
 
         /// <summary>
         /// The custom options menu has been opened. The window must not be closed
@@ -745,16 +768,16 @@ namespace NotificationWindow
 
             int posCurrent = (int)(posStart + (posStop - posStart) * elapsed / realAnimationDuration);
             bool neg = posStop - posStart < 0;
-            if (neg && posCurrent < posStop ||
-                !neg && posCurrent > posStop)
+            if ((neg && posCurrent < posStop) ||
+                (!neg && posCurrent > posStop))
             {
                 posCurrent = posStop;
             }
 
             double opacityCurrent = opacityStart + (opacityStop - opacityStart) * elapsed / realAnimationDuration;
             neg = opacityStop - opacityStart < 0;
-            if (neg && opacityCurrent < opacityStop ||
-                !neg && opacityCurrent > opacityStop)
+            if ((neg && opacityCurrent < opacityStop) ||
+                (!neg && opacityCurrent > opacityStop))
             {
                 opacityCurrent = opacityStop;
             }
@@ -765,7 +788,6 @@ namespace NotificationWindow
             // animation has ended
             if (elapsed > realAnimationDuration)
             {
-
                 sw.Reset();
                 tmrAnimation.Stop();
 

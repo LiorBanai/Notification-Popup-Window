@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.128
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationWindow", "NotificationWindow\NotificationWindow.csproj", "{605006EB-D4E6-4312-A293-3A43FAC43240}"
 EndProject
@@ -10,6 +10,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationWindow.UnitTests", "NotificationWindow.UnitTests\NotificationWindow.UnitTests.csproj", "{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}"
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "DemoApp.VB", "DemoApp.VB\DemoApp.VB.vbproj", "{AB16D7E7-6994-42E2-9083-B551F226F6DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3E8135D5-69D6-4B16-8004-86D68CF8277B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.github\dependabot.yml = .github\dependabot.yml
+		.github\workflows\dotnet-core-desktop.yml = .github\workflows\dotnet-core-desktop.yml
+		nuget.config = nuget.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,11 +34,13 @@ Global
 		{605006EB-D4E6-4312-A293-3A43FAC43240}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{605006EB-D4E6-4312-A293-3A43FAC43240}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{605006EB-D4E6-4312-A293-3A43FAC43240}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{605006EB-D4E6-4312-A293-3A43FAC43240}.Debug|x86.Build.0 = Debug|Any CPU
 		{605006EB-D4E6-4312-A293-3A43FAC43240}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{605006EB-D4E6-4312-A293-3A43FAC43240}.Release|Any CPU.Build.0 = Release|Any CPU
 		{605006EB-D4E6-4312-A293-3A43FAC43240}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{605006EB-D4E6-4312-A293-3A43FAC43240}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{605006EB-D4E6-4312-A293-3A43FAC43240}.Release|x86.ActiveCfg = Release|Any CPU
+		{605006EB-D4E6-4312-A293-3A43FAC43240}.Release|x86.Build.0 = Release|Any CPU
 		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{833625E6-80AC-45E0-8AA4-06BDDEDBEA2F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -56,17 +66,11 @@ Global
 		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Release|x86.ActiveCfg = Release|Any CPU
 		{92DE39C5-A340-4EEB-B768-BC15E60A9AA2}.Release|x86.Build.0 = Release|Any CPU
 		{AB16D7E7-6994-42E2-9083-B551F226F6DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AB16D7E7-6994-42E2-9083-B551F226F6DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB16D7E7-6994-42E2-9083-B551F226F6DF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{AB16D7E7-6994-42E2-9083-B551F226F6DF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{AB16D7E7-6994-42E2-9083-B551F226F6DF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AB16D7E7-6994-42E2-9083-B551F226F6DF}.Debug|x86.Build.0 = Debug|Any CPU
 		{AB16D7E7-6994-42E2-9083-B551F226F6DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AB16D7E7-6994-42E2-9083-B551F226F6DF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AB16D7E7-6994-42E2-9083-B551F226F6DF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{AB16D7E7-6994-42E2-9083-B551F226F6DF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{AB16D7E7-6994-42E2-9083-B551F226F6DF}.Release|x86.ActiveCfg = Release|Any CPU
-		{AB16D7E7-6994-42E2-9083-B551F226F6DF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

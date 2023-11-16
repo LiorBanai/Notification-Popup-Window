@@ -23,14 +23,14 @@ namespace NotificationWindow
         internal event EventHandler ContextMenuOpened;
         internal event EventHandler ContextMenuClosed;
 
-        private bool mouseOnClose = false;
-        private bool mouseOnLink = false;
-        private bool mouseOnOptions = false;
+        private bool mouseOnClose;
+        private bool mouseOnLink;
+        private bool mouseOnOptions;
         private int heightOfTitle;
 
         #region GDI objects
 
-        private bool gdiInitialized = false;
+        private bool gdiInitialized;
         private Rectangle rcBody;
         private Rectangle rcHeader;
         private Rectangle rcForm;
@@ -86,15 +86,11 @@ namespace NotificationWindow
         private void InitializeComponent()
         {
             SuspendLayout();
-            // 
-            // PopupNotifierForm
-            // 
             ClientSize = new Size(392, 66);
             FormBorderStyle = FormBorderStyle.None;
             Name = "PopupNotifierForm";
             StartPosition = FormStartPosition.Manual;
             ResumeLayout(false);
-
         }
 
         /// <summary>
@@ -332,7 +328,6 @@ namespace NotificationWindow
                 e.Graphics.DrawImage(Parent.Image, Parent.ImagePadding.Left, Parent.HeaderHeight + Parent.ImagePadding.Top, Parent.ImageSize.Width, Parent.ImageSize.Height);
             }
 
-
             if (Parent.IsRightToLeft)
             {
                 heightOfTitle = (int)e.Graphics.MeasureString("A", Parent.TitleFont).Height;
@@ -363,11 +358,11 @@ namespace NotificationWindow
                 }
 
                 e.Graphics.DrawString(Parent.TitleText, Parent.TitleFont, brushTitle, titleX, Parent.HeaderHeight + Parent.TitlePadding.Top);
+
                 // draw content text, optionally with a bold part
                 Cursor = mouseOnLink ? Cursors.Hand : Cursors.Default;
                 Brush brushText = mouseOnLink ? brushLinkHover : brushContent;
                 e.Graphics.DrawString(Parent.ContentText, Parent.ContentFont, brushText, RectContentText);
-
             }
         }
 

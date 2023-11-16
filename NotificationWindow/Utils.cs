@@ -12,12 +12,12 @@ namespace NotificationWindow
             public static readonly int SizeOf = Marshal.SizeOf(typeof(LASTINPUTINFO));
 
             [MarshalAs(UnmanagedType.U4)]
-            public UInt32 cbSize;
+            public uint cbSize;
             [MarshalAs(UnmanagedType.U4)]
-            public UInt32 dwTime;
+            public uint dwTime;
         }
         [DllImport("user32.dll")]
-        static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+        private static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
@@ -36,17 +36,14 @@ namespace NotificationWindow
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
 
-
         public static bool IsForegroundFullScreen(System.Windows.Forms.Screen screen = null)
         {
-
             if (screen == null)
             {
                 screen = System.Windows.Forms.Screen.PrimaryScreen;
             }
             RECT rect = new RECT();
             IntPtr hWnd = GetForegroundWindow();
-
 
             GetWindowRect(new HandleRef(null, hWnd), ref rect);
 
@@ -57,14 +54,10 @@ namespace NotificationWindow
             Console.WriteLine(proc.ProcessName);
             */
 
-
             return screen.Bounds.Width == (rect.right - rect.left) && screen.Bounds.Height == (rect.bottom - rect.top);
-
-
         }
 
-
-        static long GetLastInputTime()
+        public static long GetLastInputTime()
         {
             uint idleTime = 0;
             LASTINPUTINFO lastInputInfo = new LASTINPUTINFO();
